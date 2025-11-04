@@ -1,0 +1,41 @@
+﻿@model RinconLetras.Models.Cliente
+
+@{
+    ViewBag.Title = "RegistrarCliente";
+    Layout = "~/Views/Shared/_LayoutInterno.cshtml";
+}
+
+@if (ViewBag.Mensaje != null)
+{
+    <div class="alert alert-primary text-center">
+        @ViewBag.Mensaje
+    </div>
+}
+
+@using (Html.BeginForm("RegistrarCliente", "Clientes", FormMethod.Post, new { @id = "FormRegistrarCliente" }))
+{
+    <div class="card shadow p-4" style="max-width: 600px; margin: 0 auto;">
+        <h4 class="mb-4 text-center">Registrar Cliente</h4>
+
+        <div class="mb-3">
+            <label for="NombreCliente" class="form-label">Nombre del Cliente</label>
+            @Html.TextBoxFor(m => m.NombreCliente, new { @class = "form-control", @placeholder = "Ej: Alex Cesar" })
+        </div>
+
+        <div class="mb-3">
+            <label for="TarjetaCliente" class="form-label">Número de Tarjeta</label>
+            @Html.TextBoxFor(m => m.TarjetaCliente, new { @class = "form-control", @type = "number", @placeholder = "Ej: 155834823618" })
+        </div>
+
+        <div class="mb-3">
+            <label for="Correo" class="form-label">Correo Electrónico</label>
+            @Html.TextBoxFor(m => m.Correo, new { @class = "form-control", @type = "email", @placeholder = "correo@ejemplo.com" })
+        </div>
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary d-grid w-100">Proceder</button>
+        </div>
+
+    </div>
+}
+

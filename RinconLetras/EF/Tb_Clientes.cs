@@ -16,7 +16,7 @@ namespace RinconLetras.EF
     {
         public int IdCliente { get; set; }
         public string NombreCliente { get; set; }
-        public int TarjetaCliente { get; set; }
+        public long TarjetaCliente { get; set; }
         public string Correo { get; set; }
     }
 }

@@ -39,8 +39,8 @@ CREATE TABLE Tb_Autores (
 -- Tb_Clientes Tabla de los datos de los clientes
 CREATE TABLE Tb_Clientes (
     IdCliente INT IDENTITY(1,1) PRIMARY KEY,
-    NombreCliente VARCHAR(45) NOT NULL,
-    TarjetaCliente INT UNIQUE NOT NULL,
+    NombreCliente VARCHAR(255) NOT NULL,
+    TarjetaCliente BIGINT UNIQUE NOT NULL,
     Correo VARCHAR(150)
 );
 
@@ -195,6 +195,7 @@ INSERT INTO Tb_Ubicaciones (IdUbicacion, IdLibro, Cantidad) VALUES
 
 -- Procedimientos almacenados
 
+-- SP para validar si existe un empleado y si sus credenciales son correctas para iniciar sesión
 CREATE PROCEDURE ValidarEmpleado
     @CorreoElectronico  VARCHAR(100), 
     @Contrasenna        VARCHAR(10)
@@ -216,4 +217,42 @@ GO
 SELECT * FROM Tb_Empleados;
 
 EXEC ValidarEmpleado 'andres@email.com', 'andres123';
+
+-- Registrar nuevo cliente
+CREATE PROCEDURE RegistrarCliente
+    @NombreCliente   VARCHAR(255),
+    @TarjetaCliente  BIGINT,
+    @Correo          VARCHAR(150)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Verificar si ya existe una tarjeta registrada
+    IF EXISTS (
+        SELECT 1
+        FROM Tb_Clientes
+        WHERE TarjetaCliente = @TarjetaCliente
+    )
+    BEGIN
+        RAISERROR('La tarjeta ya está registrada para otro cliente.', 16, 1);
+        RETURN;
+    END
+
+    -- Insertar nuevo cliente
+    BEGIN TRY
+        INSERT INTO Tb_Clientes (NombreCliente, TarjetaCliente, Correo)
+        VALUES (@NombreCliente, @TarjetaCliente, @Correo);
+    END TRY
+    BEGIN CATCH
+        -- Manejo de errores
+        DECLARE @MensajeError NVARCHAR(4000) = ERROR_MESSAGE();
+        RAISERROR('Error al registrar el cliente: %s', 16, 1, @MensajeError);
+    END CATCH
+END
+GO
+
+EXEC RegistrarCliente 
+    @NombreCliente = 'Alex Cesar',
+    @TarjetaCliente = 155834823618,
+    @Correo = 'alexcesar@email.com';
 

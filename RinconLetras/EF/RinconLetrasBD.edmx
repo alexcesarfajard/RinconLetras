@@ -26,8 +26,8 @@
             <PropertyRef Name="IdCliente" />
           </Key>
           <Property Name="IdCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NombreCliente" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="TarjetaCliente" Type="int" Nullable="false" />
+          <Property Name="NombreCliente" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="TarjetaCliente" Type="bigint" Nullable="false" />
           <Property Name="Correo" Type="varchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="Tb_Editoriales">
@@ -178,6 +178,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="RegistrarCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NombreCliente" Type="varchar" Mode="In" />
+          <Parameter Name="TarjetaCliente" Type="bigint" Mode="In" />
+          <Parameter Name="Correo" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="ValidarEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CorreoElectronico" Type="varchar" Mode="In" />
           <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
@@ -241,8 +246,8 @@
             <PropertyRef Name="IdCliente" />
           </Key>
           <Property Name="IdCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NombreCliente" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="TarjetaCliente" Type="Int32" Nullable="false" />
+          <Property Name="NombreCliente" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TarjetaCliente" Type="Int64" Nullable="false" />
           <Property Name="Correo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Tb_Editoriales">
@@ -418,6 +423,11 @@
             <End Role="Tb_Autores" EntitySet="Tb_Autores" />
             <End Role="Tb_Libros" EntitySet="Tb_Libros" />
           </AssociationSet>
+          <FunctionImport Name="RegistrarCliente">
+            <Parameter Name="NombreCliente" Mode="In" Type="String" />
+            <Parameter Name="TarjetaCliente" Mode="In" Type="Int64" />
+            <Parameter Name="Correo" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="ValidarEmpleado" ReturnType="Collection(RinconLetrasBDModel.ValidarEmpleado_Result)">
             <Parameter Name="CorreoElectronico" Mode="In" Type="String" />
             <Parameter Name="Contrasenna" Mode="In" Type="String" />
@@ -534,6 +544,7 @@
               <ScalarProperty Name="IdLibro" ColumnName="Id_libro" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="RegistrarCliente" FunctionName="RinconLetrasBDModel.Store.RegistrarCliente" />
           <FunctionImportMapping FunctionImportName="ValidarEmpleado" FunctionName="RinconLetrasBDModel.Store.ValidarEmpleado">
             <ResultMapping>
               <ComplexTypeMapping TypeName="RinconLetrasBDModel.ValidarEmpleado_Result">

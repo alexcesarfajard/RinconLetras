@@ -37,6 +37,23 @@ namespace RinconLetras.EF
         public virtual DbSet<Tb_Ubicacion> Tb_Ubicacion { get; set; }
         public virtual DbSet<Tb_Ubicaciones> Tb_Ubicaciones { get; set; }
     
+        public virtual int RegistrarCliente(string nombreCliente, Nullable<long> tarjetaCliente, string correo)
+        {
+            var nombreClienteParameter = nombreCliente != null ?
+                new ObjectParameter("NombreCliente", nombreCliente) :
+                new ObjectParameter("NombreCliente", typeof(string));
+    
+            var tarjetaClienteParameter = tarjetaCliente.HasValue ?
+                new ObjectParameter("TarjetaCliente", tarjetaCliente) :
+                new ObjectParameter("TarjetaCliente", typeof(long));
+    
+            var correoParameter = correo != null ?
+                new ObjectParameter("Correo", correo) :
+                new ObjectParameter("Correo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarCliente", nombreClienteParameter, tarjetaClienteParameter, correoParameter);
+        }
+    
         public virtual ObjectResult<ValidarEmpleado_Result> ValidarEmpleado(string correoElectronico, string contrasenna)
         {
             var correoElectronicoParameter = correoElectronico != null ?
