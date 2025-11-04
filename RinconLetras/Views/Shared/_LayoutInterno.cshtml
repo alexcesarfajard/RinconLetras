@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var nombreEmpleado = (Session["NombreUsuario"] == null ? "Invitado" : Session["NombreUsuario"].ToString());
+    var Nombre_puesto = (Session["Nombre_puesto"] == null ? "Pendiente" : Session["PerfilUsuario"].ToString());
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -24,7 +29,6 @@
 
         <!-- Navbar superior buscar-->
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-            
         </form>
 
         <!-- Navbar-->
@@ -34,7 +38,7 @@
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="#!">Configuracion</a></li>
                     <li><hr class="dropdown-divider" /></li>
-                    <li><a class="dropdown-item" href="@Url.Action("Index","Home")">Cerrar sesion</a></li>
+                    <li><a class="dropdown-item" href="@Url.Action("CerrarSesion","Home")">Cerrar sesion</a></li>
                 </ul>
             </li>
         </ul>
@@ -102,9 +106,9 @@
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
-                        
+
                         <div class="text-muted">Copyright &copy; Derechos reservados Alex Cesar Fajardo </div>
-                        
+
                     </div>
                 </div>
             </footer>
@@ -119,6 +123,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+
+    <script>
+        window.addEventListener("pageshow", function (event) {
+            if (event.persisted || performance.getEntriesByType("navigation")[0].type === "back_forward") {
+                window.location.reload(true);
+            }
+        });
+    </script>
 
 </body>
 </html>

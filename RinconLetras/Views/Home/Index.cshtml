@@ -1,4 +1,6 @@
-﻿@{
+﻿@model RinconLetras.Models.Empleado
+
+@{
         Layout = "~/Views/Shared/_Layout.cshtml";
         ViewBag.Title = "Iniciar sesión";
 }
@@ -15,15 +17,23 @@
                             <div class="card-header"><h3 class="text-center font-weight-light my-4">Inicio de sesión</h3></div>
                             <div class="card-body">
 
-                                <form>
+                                @if (ViewBag.Mensaje != null)
+                                {
+                                    <div class="alert alert-primary text-center">
+                                        @ViewBag.Mensaje
+                                    </div>
+                                }
 
+
+                                @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @id = "FormIniciarSesion" }))
+                                {
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="inputEmail" type="email" placeholder="correo@example.com" />
-                                        <label for="inputEmail">Correo electronico</label>
+                                        @Html.TextBoxFor(m => m.CorreoElectronico, new { @class = "form-control", @type = "email", @placeholder = "correo@example.com", @id = "inputEmail" })
+                                        <label for="inputEmail">Correo electrónico</label>
                                     </div>
 
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="inputPassword" type="password" placeholder="Password" />
+                                        @Html.PasswordFor(m => m.Contrasenna, new { @class = "form-control", @placeholder = "Contraseña", @id = "inputPassword" })
                                         <label for="inputPassword">Contraseña</label>
                                     </div>
 
@@ -34,10 +44,10 @@
 
                                     <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                         <a class="small" href="@Url.Action("RecuperarAcceso","Home")">Recuperar acceso</a>
-                                        <a class="btn btn-primary" href="@Url.Action("Principal","Home")">Proceder</a>
+                                        <button type="submit" class="btn btn-primary">Proceder</button>
                                     </div>
+                                }
 
-                                </form>
                             </div>
 
                         </div>
