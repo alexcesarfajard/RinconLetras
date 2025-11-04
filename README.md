@@ -1,0 +1,1 @@
+En este repositorio se está desarrollando una aplicación para una librería, para la clase de Programación avanzada web utilizando HTML, CSS, Bootstrap, EntityFramework, MVC, conexiones a bases de datos y validaciones
