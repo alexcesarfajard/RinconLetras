@@ -25,7 +25,7 @@ namespace RinconLetras.Controllers
         public ActionResult Index(Empleado empleado)
         {
 
-            using (var context = new RinconLetrasBDEntities())
+            using (var context = new RinconLetrasBDEntities1())
             {
                 var resultado = context.ValidarEmpleado(empleado.CorreoElectronico, empleado.Contrasenna).FirstOrDefault();
 

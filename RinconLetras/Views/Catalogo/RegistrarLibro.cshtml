@@ -1,0 +1,62 @@
+@model RinconLetras.Models.Libro
+@{
+    ViewBag.Title = "Registrar Libro";
+    Layout = "~/Views/Shared/_LayoutInterno.cshtml";
+}
+
+<div style="max-width: 600px; margin: 40px auto; text-align:center;">
+
+    <h2 style="background:#003366; color:white; padding:10px; border-radius:8px;">
+        Registrar Nuevo Libro
+    </h2>
+
+    @if (ViewBag.Mensaje != null)
+    {
+        <div class="alert alert-warning text-center">
+            @ViewBag.Mensaje
+        </div>
+    }
+
+    @using (Html.BeginForm("RegistrarLibro", "Catalogo", FormMethod.Post))
+    {
+        <div style="background:white; border:2px solid #003366; border-radius:10px; padding:25px;">
+
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Nombre, "Nombre del Libro", new { style = "font-weight:bold; color:#003366;" })
+                @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control", placeholder = "Ingrese el nombre del libro", style = "max-width:320px; margin:auto;" })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Precio, "Precio", new { style = "font-weight:bold; color:#003366;" })
+                @Html.TextBoxFor(m => m.Precio, new { @class = "form-control", type = "number", step = "0.01", placeholder = "0.00", style = "max-width:320px; margin:auto;" })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(m => m.CantidadInventario, "Cantidad en Inventario", new { style = "font-weight:bold; color:#003366;" })
+                @Html.TextBoxFor(m => m.CantidadInventario, new { @class = "form-control", type = "number", min = "1", placeholder = "Ingrese la cantidad", style = "max-width:320px; margin:auto;" })
+            </div>
+
+            <div class="mb-3">
+                <label style="font-weight:bold; color:#003366;">Editorial</label>
+                @Html.DropDownList("IdEditorial", (SelectList)ViewBag.Editoriales, "-- Seleccione una editorial --", new { @class = "form-select", style = "max-width:320px; margin:auto;" })
+            </div>
+
+            <div class="mb-3">
+                <label style="font-weight:bold; color:#003366;">Género</label>
+                @Html.DropDownList("IdGenero", (SelectList)ViewBag.Generos, "-- Seleccione un género --", new { @class = "form-select", style = "max-width:320px; margin:auto;" })
+            </div>
+
+            <div style="margin-top:15px;">
+                <button type="submit" style="background:#28a745; color:white; padding:7px 20px; border:none; border-radius:6px;">
+                    Registrar
+                </button>
+
+                <a href="@Url.Action("VerCatalogo", "Catalogo")"
+                   style="background:#dc3545; color:white; padding:7px 20px; border:none; border-radius:6px; margin-left:8px;">
+                    Cancelar
+                </a>
+            </div>
+
+        </div>
+    }
+</div>

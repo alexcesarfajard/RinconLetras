@@ -1,0 +1,71 @@
+@model List<RinconLetras.Models.Libro>
+
+@{
+    ViewBag.Title = "Catálogo de Libros";
+    Layout = "~/Views/Shared/_LayoutInterno.cshtml";
+}
+
+<div class="container mt-5">
+    <h2 class="titulo-catalogo">
+        <i class="fas fa-book me-2"></i> Catálogo de Libros
+    </h2>
+
+    @if (ViewBag.Mensaje != null)
+    {
+        <div class="alert alert-danger text-center shadow-sm">@ViewBag.Mensaje</div>
+    }
+
+    <div class="card card-catalogo">
+        <div class="card-body p-4">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover align-middle text-center tabla-catalogo">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Título</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                            <th>Editorial</th>
+                            <th>Género</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Count > 0)
+                        {
+                            int contador = 1;
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@contador</td>
+                                    <td>@item.Nombre</td>
+                                    <td>₡@String.Format("{0:N2}", item.Precio)</td>
+                                    <td>@item.CantidadInventario</td>
+                                    <td>@item.Editorial</td>
+                                    <td>@item.Genero</td>
+                                </tr>
+                                contador++;
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="6" class="texto-vacio">
+                                    <i class="fas fa-info-circle fs-3"></i>
+                                    <p>No hay libros disponibles en este momento.</p>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class=" text-end mb-3">
+                <a href="@Url.Action("RegistrarLibro", "Catalogo")" class="btn btn-outline-success">
+                    Agregar Nuevo Libro
+                </a>
+            </div>
+
+
+        </div>
+    </div>
+</div>

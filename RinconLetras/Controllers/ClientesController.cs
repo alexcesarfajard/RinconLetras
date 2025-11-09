@@ -20,15 +20,11 @@ namespace RinconLetras.Controllers
         [HttpPost]
         public ActionResult RegistrarCliente(Cliente cliente)
         {
-            using (var context = new RinconLetrasBDEntities())
+            using (var context = new RinconLetrasBDEntities1())
             {
                 var resultado = context.RegistrarCliente(cliente.NombreCliente, cliente.TarjetaCliente, cliente.Correo);
 
-                /* 
-                Sí se están guardando los clientes en la base de datos pero no aparece el mensaje "información registrada"
-                en cambio, pasa directamente al Else y se muestra que hubo un error. REVISAR
-                */
-
+                
                 if(resultado > 0)
                 {
                     ViewBag.Mensaje = "Información registrada";
@@ -45,7 +41,7 @@ namespace RinconLetras.Controllers
         [HttpGet]
         public ActionResult VerClientes()
         {
-            using(var context = new RinconLetrasBDEntities())
+            using(var context = new RinconLetrasBDEntities1())
             {
                 //Traer el objeto de la BD
                 var resultado = context.Tb_Clientes.ToList();
