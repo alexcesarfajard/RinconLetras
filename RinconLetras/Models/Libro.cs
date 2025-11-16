@@ -1,4 +1,4 @@
-
+﻿
 namespace RinconLetras.Models
     {
         public class Libro
@@ -8,6 +8,9 @@ namespace RinconLetras.Models
             public decimal Precio { get; set; }             
             public int CantidadInventario { get; set; }     
             public string Editorial { get; set; }          
-            public string Genero { get; set; }           
-        }
+            public string Genero { get; set; }
+        public bool Activo { get; set; }
+        public string Imagen { get; set; }
+ 
     }
+}

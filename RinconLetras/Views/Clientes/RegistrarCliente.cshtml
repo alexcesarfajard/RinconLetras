@@ -1,4 +1,4 @@
-﻿@model RinconLetras.Models.Cliente
+﻿﻿@model RinconLetras.Models.Cliente
 
 @{
     ViewBag.Title = "RegistrarCliente";
@@ -23,19 +23,31 @@
         </div>
 
         <div class="mb-3">
-            <label for="TarjetaCliente" class="form-label">Número de Tarjeta</label>
-            @Html.TextBoxFor(m => m.TarjetaCliente, new { @class = "form-control", @type = "number", @placeholder = "Ej: 155834823618" })
+            <label for="Identificacion" class="form-label">Identificacion</label>
+            @Html.TextBoxFor(m => m.Identificacion, new { @class = "form-control", @type = "number", @placeholder = "Ej: 155834823618" })
+        </div>
+
+        <div class="mb-3">
+            <label for="FechaNacimiento" class="form-label">Fecha de nacimiento</label>
+            @Html.TextBoxFor(m => m.FechaNacimiento, new { @class = "form-control", @type = "Datez  ", @placeholder = "Ej: YYYY/MM/DD" })
         </div>
 
         <div class="mb-3">
             <label for="Correo" class="form-label">Correo Electrónico</label>
-            @Html.TextBoxFor(m => m.Correo, new { @class = "form-control", @type = "email", @placeholder = "correo@ejemplo.com" })
+            @Html.TextBoxFor(m => m.CorreoElectronico, new { @class = "form-control", @type = "email", @placeholder = "correo@ejemplo.com" })
         </div>
+
+        <div class="mb-3">
+            <label for="Correo" class="form-label">Contrasena</label>
+            @Html.TextBoxFor(m => m.Contrasenna, new { @class = "form-control", @type = "password"})
+        </div>
+
 
         <div class="mb-3">
             <button type="submit" class="btn btn-primary d-grid w-100">Proceder</button>
         </div>
-
+        <a href="@Url.Action("VerClientes", "Clientes")" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Regresar
+        </a>
     </div>
 }
-

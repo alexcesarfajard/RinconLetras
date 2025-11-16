@@ -36,33 +36,37 @@ CREATE TABLE Tb_Autores (
     Nacionalidad VARCHAR(45)
 );
 
--- Tb_Clientes Tabla de los datos de los clientes
+-- Tb_Clientes Tabla de los datos de los clientes eliminada 
+/*
 CREATE TABLE Tb_Clientes (
     IdCliente INT IDENTITY(1,1) PRIMARY KEY,
     NombreCliente VARCHAR(255) NOT NULL,
     TarjetaCliente BIGINT UNIQUE NOT NULL,
     Correo VARCHAR(150)
 );
+*/
 
--- Tb_Puestos contiene los puestos de los empleados
-CREATE TABLE Tb_Puestos (
-    IdPuesto INT IDENTITY(1,1) PRIMARY KEY,
-    Nombre_puesto VARCHAR(45) NOT NULL
+-- Tb_Roles contiene los roles de los usuarios
+CREATE TABLE Tb_Roles (
+    IdRol INT IDENTITY(1,1) PRIMARY KEY,
+    NombreRol VARCHAR(100) NOT NULL
 );
 
--- Tb_Empleados Tabla empleados contiene los datos de los empleados
-CREATE TABLE Tb_Empleados (
-    IdEmpleados INT IDENTITY(1,1) PRIMARY KEY,
-    NombreEmpleado VARCHAR(45) NOT NULL,
+-- Tb_Usuarios Tabla usuarios contiene los datos de los usuarios
+CREATE TABLE Tb_Usuarios (
+    IdUsuario INT IDENTITY(1,1) PRIMARY KEY,
+    NombreUsuario VARCHAR(45) NOT NULL,
     FechaNacimiento DATETIME,
-    Salario DECIMAL(10,2),
-    NumeroCarnet INT UNIQUE,
-    IdPuesto INT,
+    Identificacion INT UNIQUE,
+    IdRol INT,
 	Activo INT,
 	CorreoElectronico varchar(200),
-	Contrasenna VARCHAR(50),
-    CONSTRAINT FK_Empleado_Puesto FOREIGN KEY (IdPuesto) REFERENCES Tb_Puestos(IdPuesto)
+	Contrasenna VARCHAR(100),
+    CONSTRAINT FK_Usuario_Rol FOREIGN KEY (IdRol) REFERENCES Tb_Roles(IdRol)
 );
+
+ALTER TABLE Tb_Usuarios
+ADD CONSTRAINT UQ_Usuarios_Correo UNIQUE (CorreoElectronico);
 
 -- Tb_Libros contiene los libros de la librería
 CREATE TABLE Tb_Libros (
@@ -75,6 +79,10 @@ CREATE TABLE Tb_Libros (
     CONSTRAINT FK_Libro_Editorial FOREIGN KEY (IdEditorial) REFERENCES Tb_Editoriales(IdEditorial),
     CONSTRAINT FK_Libro_Genero FOREIGN KEY (IdGenero) REFERENCES Tb_Generos(IdGenero)
 );
+
+ALTER TABLE Tb_Libros
+ADD Activo BIT NOT NULL DEFAULT 1,
+    Imagen VARCHAR(255) NULL;
 
 -- Tb_AutoresLibros contiene referencias de autores para un libro (un libro puede tener varios autores)
 CREATE TABLE Tb_AutoresLibros (
@@ -95,15 +103,13 @@ CREATE TABLE Tb_Ubicaciones (
     CONSTRAINT FK_Ubicaciones_Libro FOREIGN KEY (IdLibro) REFERENCES Tb_Libros(IdLibro)
 );
 
--- Tb_Facturas tabla de facturas tiene los datos de las facturas, cliente, fecha, 
+-- Tb_Facturas tabla de facturas tiene los datos de las facturas, cliente, fecha
 CREATE TABLE Tb_Facturas (
     IdFactura INT IDENTITY(1,1) PRIMARY KEY,
     FechaFactura DATETIME NOT NULL,
     MontoTotal DECIMAL(10,2) NOT NULL,
-    IdCliente INT NOT NULL,
-    IdEmpleados INT NOT NULL,
-    CONSTRAINT FK_Factura_Cliente FOREIGN KEY (IdCliente) REFERENCES Tb_Clientes(IdCliente),
-    CONSTRAINT FK_Factura_Empleado FOREIGN KEY (IdEmpleados) REFERENCES Tb_Empleados(IdEmpleados)
+    IdUsuario INT NOT NULL,
+    CONSTRAINT FK_Factura_Cliente FOREIGN KEY (IdUsuario) REFERENCES Tb_Usuarios(IdUsuario) -- Cliente de factura
 );
 
 -- Tb_DetallesFacturas contiene los detalles de una factura 
@@ -118,7 +124,6 @@ CREATE TABLE Tb_DetallesFacturas (
 GO
 
 -- Inserts de prueba
-
 -- Tb_Editoriales
 INSERT INTO Tb_Editoriales (Nombre, Direccion) VALUES
 ('Editorial Oceano', 'Av. Central #245, San José'),
@@ -151,29 +156,48 @@ INSERT INTO Tb_Autores (Nombre_Autor, Nacionalidad) VALUES
 
 SELECT * FROM Tb_Autores;
 
--- Tb_Clientes
-INSERT INTO Tb_Clientes (NombreCliente, TarjetaCliente, Correo) VALUES
-('Laura Jiménez', '103210654', 'laura.jimenez@email.com'),
-('Carlos Soto', '407890456', 'carlos.soto@email.com'),
-('María Vargas', '701590236', 'maria.vargas@email.com');
-
-SELECT * FROM Tb_Clientes;
-
--- Tb_Puestos
-INSERT INTO Tb_Puestos (Nombre_puesto) VALUES
-('Cajero'),
-('Vendedor'),
+-- Tb_Roles
+INSERT INTO Tb_Roles (NombreRol) VALUES
+('Usuario cliente'),
+('Usuario vendedor'),
 ('Administrador');
 
 SELECT * FROM Tb_Puestos;
 
--- Tb_Empleados
-INSERT INTO Tb_Empleados (NombreEmpleado, FechaNacimiento, Salario, NumeroCarnet, IdPuesto, Contrasenna, Activo, CorreoElectronico) VALUES
-('Andrés Mora', '1990-04-12', 550000.00, 1001, 1, 'andres123', 1, 'andres@email.com'),
-('Sofía Rojas', '1995-09-23', 620000.00, 1002, 2, 'sofia123', 1, 'sofia@email.com'),
-('Daniel Pérez', '1988-01-17', 800000.00, 1003, 3, 'daniel123', 1, 'daniel@email.com');
+-- Insertes en Tb_Usuarios, primeros 3 inserts de Clientes
+INSERT INTO Tb_Usuarios(NombreUsuario, FechaNacimiento, Identificacion, IdRol, Activo, CorreoElectronico, Contrasenna) VALUES
+('Andrés Mora', '1990-04-12', 101230456, 1, 1, 'andres@email.com', 'andres123'),
+('Sofía Rojas', '1995-09-23', 101230567, 1, 1, 'sofia@email.com', 'sofia123'),
+('Daniel Pérez', '1988-01-17', 101230890, 1, 1, 'daniel@email.com', 'daniel123');
 
-SELECT * FROM Tb_Empleados;
+-- Inserts para usario Vendedor
+INSERT INTO Tb_Usuarios(NombreUsuario, FechaNacimiento, Identificacion, IdRol, Activo, CorreoElectronico, Contrasenna) VALUES
+('Juan Solano', '1990-04-12', 102340567, 2, 1, 'juans@email.com', 'juan123'),
+('Maria Rodriguez', '1995-09-23', 102340789, 2, 1, 'mariar@email.com', 'maria123');
+
+-- Insert para usuario Administrador
+INSERT INTO Tb_Usuarios(NombreUsuario, FechaNacimiento, Identificacion, IdRol, Activo, CorreoElectronico, Contrasenna) VALUES
+('Alex Cesar', '1996-08-27', 201230456, 3, 1, 'alexc@email.com', 'alex123');
+
+INSERT INTO Tb_Usuarios(NombreUsuario, FechaNacimiento, Identificacion, IdRol, Activo, CorreoElectronico, Contrasenna) VALUES
+('Alex Fajardo', '1996-08-27', 201230451, 3, 1, 'alexf@email.com', 'alex123');
+
+
+SELECT * FROM Tb_Usuarios;
+
+SELECT 
+    u.IdUsuario,
+    u.NombreUsuario,
+	u.FechaNacimiento,
+	u.Identificacion,
+	u.IdRol,
+    r.NombreRol,
+	u.activo,
+	u.CorreoElectronico,
+	u.Contrasenna
+FROM Tb_Usuarios u
+INNER JOIN Tb_Roles r
+    ON u.IdRol = r.IdRol;
 
 -- Tb_Libros
 INSERT INTO Tb_Libros (Nombre, Precio, CantidadInventario, IdEditorial, IdGenero) VALUES
@@ -183,76 +207,107 @@ INSERT INTO Tb_Libros (Nombre, Precio, CantidadInventario, IdEditorial, IdGenero
 
 -- Tb_AutoresLibros
 INSERT INTO Tb_AutoresLibros (Id_libro, IdAutor) VALUES
-(1, 7),  -- "Cien años de soledad" - Gabriel García Márquez
-(2, 8),  -- "Breve historia del tiempo" - Stephen Hawking
-(3, 9);  -- "La casa de los espíritus" - Isabel Allende
+(1, 1),  -- "Cien años de soledad" - Gabriel García Márquez
+(2, 2),  -- "Breve historia del tiempo" - Stephen Hawking
+(3, 3);  -- "La casa de los espíritus" - Isabel Allende
 
 -- Tb_Ubicaciones
 INSERT INTO Tb_Ubicaciones (IdUbicacion, IdLibro, Cantidad) VALUES
-(7, 1, 4),  -- "Cien años de soledad" en estante A1
-(8, 2, 3),  -- "Breve historia del tiempo" en estante B2
-(9, 3, 5);  -- "La casa de los espíritus" en estante C3
+(1, 1, 1),  -- "Cien años de soledad" en estante A1
+(2, 2, 2),  -- "Breve historia del tiempo" en estante B2
+(3, 3, 3);  -- "La casa de los espíritus" en estante C3
 
 -- Procedimientos almacenados
 
--- SP para validar si existe un empleado y si sus credenciales son correctas para iniciar sesión
-CREATE PROCEDURE ValidarEmpleado
+-- SP para validar si existe un usuario y si sus credenciales son correctas para iniciar sesión
+drop procedure ValidarUsuario;
+
+CREATE PROCEDURE ValidarUsuario
     @CorreoElectronico  VARCHAR(100), 
     @Contrasenna        VARCHAR(10)
 AS
 BEGIN
-    SELECT  IdEmpleados,
-            NombreEmpleado,
+    SELECT  IdUsuario,
+            NombreUsuario,
             CorreoElectronico,
             Contrasenna,
             Activo,
-            NumeroCarnet
-    FROM    dbo.Tb_Empleados
+            Identificacion,
+			IdRol
+    FROM    dbo.Tb_Usuarios
     WHERE   CorreoElectronico = @CorreoElectronico
         AND Contrasenna = @Contrasenna
         AND Activo = 1
 END
 GO
 
-SELECT * FROM Tb_Empleados;
+EXEC ValidarUsuario 'andres@email.com', 'andres123';
 
-EXEC ValidarEmpleado 'andres@email.com', 'andres123';
+drop procedure RegistrarCliente;
 
 -- Registrar nuevo cliente
 CREATE PROCEDURE RegistrarCliente
-    @NombreCliente   VARCHAR(255),
-    @TarjetaCliente  BIGINT,
-    @Correo          VARCHAR(150)
+    @NombreUsuario     VARCHAR(45),
+    @FechaNacimiento   DATE,
+    @Identificacion    INT,
+    @CorreoElectronico VARCHAR(200),
+    @Contrasena        VARCHAR(100)
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    -- Verificar si ya existe una tarjeta registrada
-    IF EXISTS (
-        SELECT 1
-        FROM Tb_Clientes
-        WHERE TarjetaCliente = @TarjetaCliente
-    )
-    BEGIN
-        RAISERROR('La tarjeta ya está registrada para otro cliente.', 16, 1);
-        RETURN;
-    END
-
-    -- Insertar nuevo cliente
     BEGIN TRY
-        INSERT INTO Tb_Clientes (NombreCliente, TarjetaCliente, Correo)
-        VALUES (@NombreCliente, @TarjetaCliente, @Correo);
+        INSERT INTO Tb_Usuarios (
+            NombreUsuario, FechaNacimiento, Identificacion,
+            IdRol, Activo, CorreoElectronico,
+            Contrasenna
+        )
+        VALUES (
+            @NombreUsuario,
+            @FechaNacimiento,
+            @Identificacion,
+            1,               -- Rol fijo: Cliente
+            1,				 -- Activo = 1 
+            @CorreoElectronico,
+            @Contrasena
+        );
     END TRY
     BEGIN CATCH
         -- Manejo de errores
-        DECLARE @MensajeError NVARCHAR(4000) = ERROR_MESSAGE();
-        RAISERROR('Error al registrar el cliente: %s', 16, 1, @MensajeError);
+        DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
+        RAISERROR('Error al registrar cliente: %s', 16, 1, @ErrorMessage);
     END CATCH
+END;
+GO
+
+EXEC RegistrarCliente
+    @NombreUsuario = 'Jose Garcia',
+    @FechaNacimiento = '1990-05-12',
+    @Identificacion = 102340123,
+    @CorreoElectronico = 'juang@email.com',
+    @Contrasena = 'juan123';
+
+-- SP para consultar libros
+CREATE PROCEDURE ConsultarCatalogoLibros
+AS
+BEGIN
+    SELECT 
+        L.IdLibro,
+        L.Nombre AS Titulo,
+        L.Precio,
+        L.CantidadInventario,
+        E.Nombre AS Editorial,
+        G.Nombre AS Genero,
+        A.Nombre_Autor AS Autor,
+        U.Numero_estante AS Estante
+    FROM Tb_Libros L
+    INNER JOIN Tb_Editoriales E ON L.IdEditorial = E.IdEditorial
+    INNER JOIN Tb_Generos G ON L.IdGenero = G.IdGenero
+    INNER JOIN Tb_AutoresLibros AL ON L.IdLibro = AL.Id_libro
+    INNER JOIN Tb_Autores A ON AL.IdAutor = A.IdAutor
+    INNER JOIN Tb_Ubicaciones UB ON L.IdLibro = UB.IdLibro
+    INNER JOIN Tb_Ubicacion U ON UB.IdUbicacion = U.IdUbicacion;
 END
 GO
 
-EXEC RegistrarCliente 
-    @NombreCliente = 'Alex Cesar',
-    @TarjetaCliente = 155834823618,
-    @Correo = 'alexcesar@email.com';
-
+EXEC ConsultarCatalogoLibros;

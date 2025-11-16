@@ -1,0 +1,722 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="RinconLetrasBDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Tb_Autores">
+          <Key>
+            <PropertyRef Name="IdAutor" />
+          </Key>
+          <Property Name="IdAutor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre_Autor" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Nacionalidad" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="Tb_AutoresLibros">
+          <Key>
+            <PropertyRef Name="Id_libro" />
+            <PropertyRef Name="IdAutor" />
+          </Key>
+          <Property Name="Id_libro" Type="int" Nullable="false" />
+          <Property Name="IdAutor" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tb_DetallesFacturas">
+          <Key>
+            <PropertyRef Name="IdFactura" />
+            <PropertyRef Name="Id_libro" />
+          </Key>
+          <Property Name="IdFactura" Type="int" Nullable="false" />
+          <Property Name="Id_libro" Type="int" Nullable="false" />
+          <Property Name="CantidadComprada" Type="int" />
+        </EntityType>
+        <EntityType Name="Tb_Editoriales">
+          <Key>
+            <PropertyRef Name="IdEditorial" />
+          </Key>
+          <Property Name="IdEditorial" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Direccion" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="Tb_Facturas">
+          <Key>
+            <PropertyRef Name="IdFactura" />
+          </Key>
+          <Property Name="IdFactura" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FechaFactura" Type="datetime" Nullable="false" />
+          <Property Name="MontoTotal" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tb_Generos">
+          <Key>
+            <PropertyRef Name="IdGenero" />
+          </Key>
+          <Property Name="IdGenero" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Tb_Libros">
+          <Key>
+            <PropertyRef Name="IdLibro" />
+          </Key>
+          <Property Name="IdLibro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Precio" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="CantidadInventario" Type="int" />
+          <Property Name="IdEditorial" Type="int" />
+          <Property Name="IdGenero" Type="int" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="Imagen" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Tb_Roles">
+          <Key>
+            <PropertyRef Name="IdRol" />
+          </Key>
+          <Property Name="IdRol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreRol" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tb_Ubicacion">
+          <Key>
+            <PropertyRef Name="IdUbicacion" />
+          </Key>
+          <Property Name="IdUbicacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Numero_estante" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="Tb_Ubicaciones">
+          <Key>
+            <PropertyRef Name="IdUbicacion" />
+            <PropertyRef Name="IdLibro" />
+          </Key>
+          <Property Name="IdUbicacion" Type="int" Nullable="false" />
+          <Property Name="IdLibro" Type="int" Nullable="false" />
+          <Property Name="Cantidad" Type="int" />
+        </EntityType>
+        <EntityType Name="Tb_Usuarios">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreUsuario" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="FechaNacimiento" Type="datetime" />
+          <Property Name="Identificacion" Type="int" />
+          <Property Name="IdRol" Type="int" />
+          <Property Name="Activo" Type="int" />
+          <Property Name="CorreoElectronico" Type="varchar" MaxLength="200" />
+          <Property Name="Contrasenna" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK_AutoresLibro_Autor">
+          <End Role="Tb_Autores" Type="Self.Tb_Autores" Multiplicity="1" />
+          <End Role="Tb_AutoresLibros" Type="Self.Tb_AutoresLibros" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Autores">
+              <PropertyRef Name="IdAutor" />
+            </Principal>
+            <Dependent Role="Tb_AutoresLibros">
+              <PropertyRef Name="IdAutor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoresLibro_Libro">
+          <End Role="Tb_Libros" Type="Self.Tb_Libros" Multiplicity="1" />
+          <End Role="Tb_AutoresLibros" Type="Self.Tb_AutoresLibros" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Libros">
+              <PropertyRef Name="IdLibro" />
+            </Principal>
+            <Dependent Role="Tb_AutoresLibros">
+              <PropertyRef Name="Id_libro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetalleFactura_Factura">
+          <End Role="Tb_Facturas" Type="Self.Tb_Facturas" Multiplicity="1" />
+          <End Role="Tb_DetallesFacturas" Type="Self.Tb_DetallesFacturas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Facturas">
+              <PropertyRef Name="IdFactura" />
+            </Principal>
+            <Dependent Role="Tb_DetallesFacturas">
+              <PropertyRef Name="IdFactura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetalleFactura_Libro">
+          <End Role="Tb_Libros" Type="Self.Tb_Libros" Multiplicity="1" />
+          <End Role="Tb_DetallesFacturas" Type="Self.Tb_DetallesFacturas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Libros">
+              <PropertyRef Name="IdLibro" />
+            </Principal>
+            <Dependent Role="Tb_DetallesFacturas">
+              <PropertyRef Name="Id_libro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Factura_Cliente">
+          <End Role="Tb_Usuarios" Type="Self.Tb_Usuarios" Multiplicity="1" />
+          <End Role="Tb_Facturas" Type="Self.Tb_Facturas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Usuarios">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Tb_Facturas">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Libro_Editorial">
+          <End Role="Tb_Editoriales" Type="Self.Tb_Editoriales" Multiplicity="0..1" />
+          <End Role="Tb_Libros" Type="Self.Tb_Libros" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Editoriales">
+              <PropertyRef Name="IdEditorial" />
+            </Principal>
+            <Dependent Role="Tb_Libros">
+              <PropertyRef Name="IdEditorial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Libro_Genero">
+          <End Role="Tb_Generos" Type="Self.Tb_Generos" Multiplicity="0..1" />
+          <End Role="Tb_Libros" Type="Self.Tb_Libros" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Generos">
+              <PropertyRef Name="IdGenero" />
+            </Principal>
+            <Dependent Role="Tb_Libros">
+              <PropertyRef Name="IdGenero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ubicaciones_Libro">
+          <End Role="Tb_Libros" Type="Self.Tb_Libros" Multiplicity="1" />
+          <End Role="Tb_Ubicaciones" Type="Self.Tb_Ubicaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Libros">
+              <PropertyRef Name="IdLibro" />
+            </Principal>
+            <Dependent Role="Tb_Ubicaciones">
+              <PropertyRef Name="IdLibro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ubicaciones_Ubicacion">
+          <End Role="Tb_Ubicacion" Type="Self.Tb_Ubicacion" Multiplicity="1" />
+          <End Role="Tb_Ubicaciones" Type="Self.Tb_Ubicaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Ubicacion">
+              <PropertyRef Name="IdUbicacion" />
+            </Principal>
+            <Dependent Role="Tb_Ubicaciones">
+              <PropertyRef Name="IdUbicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Rol">
+          <End Role="Tb_Roles" Type="Self.Tb_Roles" Multiplicity="0..1" />
+          <End Role="Tb_Usuarios" Type="Self.Tb_Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Roles">
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="Tb_Usuarios">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="RegistrarCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NombreUsuario" Type="varchar" Mode="In" />
+          <Parameter Name="FechaNacimiento" Type="date" Mode="In" />
+          <Parameter Name="Identificacion" Type="int" Mode="In" />
+          <Parameter Name="CorreoElectronico" Type="varchar" Mode="In" />
+          <Parameter Name="Contrasena" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ValidarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CorreoElectronico" Type="varchar" Mode="In" />
+          <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="RinconLetrasBDModelStoreContainer">
+          <EntitySet Name="Tb_Autores" EntityType="Self.Tb_Autores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tb_AutoresLibros" EntityType="Self.Tb_AutoresLibros" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tb_DetallesFacturas" EntityType="Self.Tb_DetallesFacturas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tb_Editoriales" EntityType="Self.Tb_Editoriales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tb_Facturas" EntityType="Self.Tb_Facturas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tb_Generos" EntityType="Self.Tb_Generos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tb_Libros" EntityType="Self.Tb_Libros" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tb_Roles" EntityType="Self.Tb_Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tb_Ubicacion" EntityType="Self.Tb_Ubicacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tb_Ubicaciones" EntityType="Self.Tb_Ubicaciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tb_Usuarios" EntityType="Self.Tb_Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AutoresLibro_Autor" Association="Self.FK_AutoresLibro_Autor">
+            <End Role="Tb_Autores" EntitySet="Tb_Autores" />
+            <End Role="Tb_AutoresLibros" EntitySet="Tb_AutoresLibros" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoresLibro_Libro" Association="Self.FK_AutoresLibro_Libro">
+            <End Role="Tb_Libros" EntitySet="Tb_Libros" />
+            <End Role="Tb_AutoresLibros" EntitySet="Tb_AutoresLibros" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetalleFactura_Factura" Association="Self.FK_DetalleFactura_Factura">
+            <End Role="Tb_Facturas" EntitySet="Tb_Facturas" />
+            <End Role="Tb_DetallesFacturas" EntitySet="Tb_DetallesFacturas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetalleFactura_Libro" Association="Self.FK_DetalleFactura_Libro">
+            <End Role="Tb_Libros" EntitySet="Tb_Libros" />
+            <End Role="Tb_DetallesFacturas" EntitySet="Tb_DetallesFacturas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Factura_Cliente" Association="Self.FK_Factura_Cliente">
+            <End Role="Tb_Usuarios" EntitySet="Tb_Usuarios" />
+            <End Role="Tb_Facturas" EntitySet="Tb_Facturas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Libro_Editorial" Association="Self.FK_Libro_Editorial">
+            <End Role="Tb_Editoriales" EntitySet="Tb_Editoriales" />
+            <End Role="Tb_Libros" EntitySet="Tb_Libros" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Libro_Genero" Association="Self.FK_Libro_Genero">
+            <End Role="Tb_Generos" EntitySet="Tb_Generos" />
+            <End Role="Tb_Libros" EntitySet="Tb_Libros" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ubicaciones_Libro" Association="Self.FK_Ubicaciones_Libro">
+            <End Role="Tb_Libros" EntitySet="Tb_Libros" />
+            <End Role="Tb_Ubicaciones" EntitySet="Tb_Ubicaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ubicaciones_Ubicacion" Association="Self.FK_Ubicaciones_Ubicacion">
+            <End Role="Tb_Ubicacion" EntitySet="Tb_Ubicacion" />
+            <End Role="Tb_Ubicaciones" EntitySet="Tb_Ubicaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Rol" Association="Self.FK_Usuario_Rol">
+            <End Role="Tb_Roles" EntitySet="Tb_Roles" />
+            <End Role="Tb_Usuarios" EntitySet="Tb_Usuarios" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RinconLetrasBDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Tb_Autores">
+          <Key>
+            <PropertyRef Name="IdAutor" />
+          </Key>
+          <Property Name="IdAutor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre_Autor" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nacionalidad" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tb_Libros" Relationship="Self.Tb_AutoresLibros" FromRole="Tb_Autores" ToRole="Tb_Libros" />
+        </EntityType>
+        <EntityType Name="Tb_DetallesFacturas">
+          <Key>
+            <PropertyRef Name="IdFactura" />
+            <PropertyRef Name="Id_libro" />
+          </Key>
+          <Property Name="IdFactura" Type="Int32" Nullable="false" />
+          <Property Name="Id_libro" Type="Int32" Nullable="false" />
+          <Property Name="CantidadComprada" Type="Int32" />
+          <NavigationProperty Name="Tb_Facturas" Relationship="Self.FK_DetalleFactura_Factura" FromRole="Tb_DetallesFacturas" ToRole="Tb_Facturas" />
+          <NavigationProperty Name="Tb_Libros" Relationship="Self.FK_DetalleFactura_Libro" FromRole="Tb_DetallesFacturas" ToRole="Tb_Libros" />
+        </EntityType>
+        <EntityType Name="Tb_Editoriales">
+          <Key>
+            <PropertyRef Name="IdEditorial" />
+          </Key>
+          <Property Name="IdEditorial" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Direccion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tb_Libros" Relationship="Self.FK_Libro_Editorial" FromRole="Tb_Editoriales" ToRole="Tb_Libros" />
+        </EntityType>
+        <EntityType Name="Tb_Facturas">
+          <Key>
+            <PropertyRef Name="IdFactura" />
+          </Key>
+          <Property Name="IdFactura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FechaFactura" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MontoTotal" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tb_DetallesFacturas" Relationship="Self.FK_DetalleFactura_Factura" FromRole="Tb_Facturas" ToRole="Tb_DetallesFacturas" />
+          <NavigationProperty Name="Tb_Usuarios" Relationship="Self.FK_Factura_Cliente" FromRole="Tb_Facturas" ToRole="Tb_Usuarios" />
+        </EntityType>
+        <EntityType Name="Tb_Generos">
+          <Key>
+            <PropertyRef Name="IdGenero" />
+          </Key>
+          <Property Name="IdGenero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tb_Libros" Relationship="Self.FK_Libro_Genero" FromRole="Tb_Generos" ToRole="Tb_Libros" />
+        </EntityType>
+        <EntityType Name="Tb_Libros">
+          <Key>
+            <PropertyRef Name="IdLibro" />
+          </Key>
+          <Property Name="IdLibro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Precio" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="CantidadInventario" Type="Int32" />
+          <Property Name="IdEditorial" Type="Int32" />
+          <Property Name="IdGenero" Type="Int32" />
+          <NavigationProperty Name="Tb_DetallesFacturas" Relationship="Self.FK_DetalleFactura_Libro" FromRole="Tb_Libros" ToRole="Tb_DetallesFacturas" />
+          <NavigationProperty Name="Tb_Editoriales" Relationship="Self.FK_Libro_Editorial" FromRole="Tb_Libros" ToRole="Tb_Editoriales" />
+          <NavigationProperty Name="Tb_Generos" Relationship="Self.FK_Libro_Genero" FromRole="Tb_Libros" ToRole="Tb_Generos" />
+          <NavigationProperty Name="Tb_Ubicaciones" Relationship="Self.FK_Ubicaciones_Libro" FromRole="Tb_Libros" ToRole="Tb_Ubicaciones" />
+          <NavigationProperty Name="Tb_Autores" Relationship="Self.Tb_AutoresLibros" FromRole="Tb_Libros" ToRole="Tb_Autores" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="Imagen" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Tb_Roles">
+          <Key>
+            <PropertyRef Name="IdRol" />
+          </Key>
+          <Property Name="IdRol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreRol" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tb_Usuarios" Relationship="Self.FK_Usuario_Rol" FromRole="Tb_Roles" ToRole="Tb_Usuarios" />
+        </EntityType>
+        <EntityType Name="Tb_Ubicacion">
+          <Key>
+            <PropertyRef Name="IdUbicacion" />
+          </Key>
+          <Property Name="IdUbicacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Numero_estante" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tb_Ubicaciones" Relationship="Self.FK_Ubicaciones_Ubicacion" FromRole="Tb_Ubicacion" ToRole="Tb_Ubicaciones" />
+        </EntityType>
+        <EntityType Name="Tb_Ubicaciones">
+          <Key>
+            <PropertyRef Name="IdUbicacion" />
+            <PropertyRef Name="IdLibro" />
+          </Key>
+          <Property Name="IdUbicacion" Type="Int32" Nullable="false" />
+          <Property Name="IdLibro" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" />
+          <NavigationProperty Name="Tb_Libros" Relationship="Self.FK_Ubicaciones_Libro" FromRole="Tb_Ubicaciones" ToRole="Tb_Libros" />
+          <NavigationProperty Name="Tb_Ubicacion" Relationship="Self.FK_Ubicaciones_Ubicacion" FromRole="Tb_Ubicaciones" ToRole="Tb_Ubicacion" />
+        </EntityType>
+        <EntityType Name="Tb_Usuarios">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreUsuario" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaNacimiento" Type="DateTime" Precision="3" />
+          <Property Name="Identificacion" Type="Int32" />
+          <Property Name="IdRol" Type="Int32" />
+          <Property Name="Activo" Type="Int32" />
+          <Property Name="CorreoElectronico" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Contrasenna" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tb_Facturas" Relationship="Self.FK_Factura_Cliente" FromRole="Tb_Usuarios" ToRole="Tb_Facturas" />
+          <NavigationProperty Name="Tb_Roles" Relationship="Self.FK_Usuario_Rol" FromRole="Tb_Usuarios" ToRole="Tb_Roles" />
+        </EntityType>
+        <Association Name="FK_DetalleFactura_Factura">
+          <End Role="Tb_Facturas" Type="Self.Tb_Facturas" Multiplicity="1" />
+          <End Role="Tb_DetallesFacturas" Type="Self.Tb_DetallesFacturas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Facturas">
+              <PropertyRef Name="IdFactura" />
+            </Principal>
+            <Dependent Role="Tb_DetallesFacturas">
+              <PropertyRef Name="IdFactura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetalleFactura_Libro">
+          <End Role="Tb_Libros" Type="Self.Tb_Libros" Multiplicity="1" />
+          <End Role="Tb_DetallesFacturas" Type="Self.Tb_DetallesFacturas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Libros">
+              <PropertyRef Name="IdLibro" />
+            </Principal>
+            <Dependent Role="Tb_DetallesFacturas">
+              <PropertyRef Name="Id_libro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Libro_Editorial">
+          <End Role="Tb_Editoriales" Type="Self.Tb_Editoriales" Multiplicity="0..1" />
+          <End Role="Tb_Libros" Type="Self.Tb_Libros" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Editoriales">
+              <PropertyRef Name="IdEditorial" />
+            </Principal>
+            <Dependent Role="Tb_Libros">
+              <PropertyRef Name="IdEditorial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Factura_Cliente">
+          <End Role="Tb_Usuarios" Type="Self.Tb_Usuarios" Multiplicity="1" />
+          <End Role="Tb_Facturas" Type="Self.Tb_Facturas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Usuarios">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Tb_Facturas">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Libro_Genero">
+          <End Role="Tb_Generos" Type="Self.Tb_Generos" Multiplicity="0..1" />
+          <End Role="Tb_Libros" Type="Self.Tb_Libros" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Generos">
+              <PropertyRef Name="IdGenero" />
+            </Principal>
+            <Dependent Role="Tb_Libros">
+              <PropertyRef Name="IdGenero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ubicaciones_Libro">
+          <End Role="Tb_Libros" Type="Self.Tb_Libros" Multiplicity="1" />
+          <End Role="Tb_Ubicaciones" Type="Self.Tb_Ubicaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Libros">
+              <PropertyRef Name="IdLibro" />
+            </Principal>
+            <Dependent Role="Tb_Ubicaciones">
+              <PropertyRef Name="IdLibro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Rol">
+          <End Role="Tb_Roles" Type="Self.Tb_Roles" Multiplicity="0..1" />
+          <End Role="Tb_Usuarios" Type="Self.Tb_Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Roles">
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="Tb_Usuarios">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ubicaciones_Ubicacion">
+          <End Role="Tb_Ubicacion" Type="Self.Tb_Ubicacion" Multiplicity="1" />
+          <End Role="Tb_Ubicaciones" Type="Self.Tb_Ubicaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Ubicacion">
+              <PropertyRef Name="IdUbicacion" />
+            </Principal>
+            <Dependent Role="Tb_Ubicaciones">
+              <PropertyRef Name="IdUbicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Tb_AutoresLibros">
+          <End Role="Tb_Autores" Type="Self.Tb_Autores" Multiplicity="*" />
+          <End Role="Tb_Libros" Type="Self.Tb_Libros" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="RinconLetrasBDEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Tb_Autores" EntityType="Self.Tb_Autores" />
+          <EntitySet Name="Tb_DetallesFacturas" EntityType="Self.Tb_DetallesFacturas" />
+          <EntitySet Name="Tb_Editoriales" EntityType="Self.Tb_Editoriales" />
+          <EntitySet Name="Tb_Facturas" EntityType="Self.Tb_Facturas" />
+          <EntitySet Name="Tb_Generos" EntityType="Self.Tb_Generos" />
+          <EntitySet Name="Tb_Libros" EntityType="Self.Tb_Libros" />
+          <EntitySet Name="Tb_Roles" EntityType="Self.Tb_Roles" />
+          <EntitySet Name="Tb_Ubicacion" EntityType="Self.Tb_Ubicacion" />
+          <EntitySet Name="Tb_Ubicaciones" EntityType="Self.Tb_Ubicaciones" />
+          <EntitySet Name="Tb_Usuarios" EntityType="Self.Tb_Usuarios" />
+          <AssociationSet Name="FK_DetalleFactura_Factura" Association="Self.FK_DetalleFactura_Factura">
+            <End Role="Tb_Facturas" EntitySet="Tb_Facturas" />
+            <End Role="Tb_DetallesFacturas" EntitySet="Tb_DetallesFacturas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetalleFactura_Libro" Association="Self.FK_DetalleFactura_Libro">
+            <End Role="Tb_Libros" EntitySet="Tb_Libros" />
+            <End Role="Tb_DetallesFacturas" EntitySet="Tb_DetallesFacturas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Libro_Editorial" Association="Self.FK_Libro_Editorial">
+            <End Role="Tb_Editoriales" EntitySet="Tb_Editoriales" />
+            <End Role="Tb_Libros" EntitySet="Tb_Libros" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Factura_Cliente" Association="Self.FK_Factura_Cliente">
+            <End Role="Tb_Usuarios" EntitySet="Tb_Usuarios" />
+            <End Role="Tb_Facturas" EntitySet="Tb_Facturas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Libro_Genero" Association="Self.FK_Libro_Genero">
+            <End Role="Tb_Generos" EntitySet="Tb_Generos" />
+            <End Role="Tb_Libros" EntitySet="Tb_Libros" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ubicaciones_Libro" Association="Self.FK_Ubicaciones_Libro">
+            <End Role="Tb_Libros" EntitySet="Tb_Libros" />
+            <End Role="Tb_Ubicaciones" EntitySet="Tb_Ubicaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Rol" Association="Self.FK_Usuario_Rol">
+            <End Role="Tb_Roles" EntitySet="Tb_Roles" />
+            <End Role="Tb_Usuarios" EntitySet="Tb_Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ubicaciones_Ubicacion" Association="Self.FK_Ubicaciones_Ubicacion">
+            <End Role="Tb_Ubicacion" EntitySet="Tb_Ubicacion" />
+            <End Role="Tb_Ubicaciones" EntitySet="Tb_Ubicaciones" />
+          </AssociationSet>
+          <AssociationSet Name="Tb_AutoresLibros" Association="Self.Tb_AutoresLibros">
+            <End Role="Tb_Autores" EntitySet="Tb_Autores" />
+            <End Role="Tb_Libros" EntitySet="Tb_Libros" />
+          </AssociationSet>
+          <FunctionImport Name="RegistrarCliente">
+            <Parameter Name="NombreUsuario" Mode="In" Type="String" />
+            <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
+            <Parameter Name="Identificacion" Mode="In" Type="Int32" />
+            <Parameter Name="CorreoElectronico" Mode="In" Type="String" />
+            <Parameter Name="Contrasena" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ValidarUsuario" ReturnType="Collection(RinconLetrasBDModel.ValidarUsuario_Result)">
+            <Parameter Name="CorreoElectronico" Mode="In" Type="String" />
+            <Parameter Name="Contrasenna" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="ValidarUsuario_Result">
+          <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+          <Property Type="String" Name="NombreUsuario" Nullable="false" MaxLength="45" />
+          <Property Type="String" Name="CorreoElectronico" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Contrasenna" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="Activo" Nullable="true" />
+          <Property Type="Int32" Name="Identificacion" Nullable="true" />
+          <Property Type="Int32" Name="IdRol" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RinconLetrasBDModelStoreContainer" CdmEntityContainer="RinconLetrasBDEntities1">
+          <EntitySetMapping Name="Tb_Autores">
+            <EntityTypeMapping TypeName="RinconLetrasBDModel.Tb_Autores">
+              <MappingFragment StoreEntitySet="Tb_Autores">
+                <ScalarProperty Name="IdAutor" ColumnName="IdAutor" />
+                <ScalarProperty Name="Nombre_Autor" ColumnName="Nombre_Autor" />
+                <ScalarProperty Name="Nacionalidad" ColumnName="Nacionalidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tb_DetallesFacturas">
+            <EntityTypeMapping TypeName="RinconLetrasBDModel.Tb_DetallesFacturas">
+              <MappingFragment StoreEntitySet="Tb_DetallesFacturas">
+                <ScalarProperty Name="IdFactura" ColumnName="IdFactura" />
+                <ScalarProperty Name="Id_libro" ColumnName="Id_libro" />
+                <ScalarProperty Name="CantidadComprada" ColumnName="CantidadComprada" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tb_Editoriales">
+            <EntityTypeMapping TypeName="RinconLetrasBDModel.Tb_Editoriales">
+              <MappingFragment StoreEntitySet="Tb_Editoriales">
+                <ScalarProperty Name="IdEditorial" ColumnName="IdEditorial" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tb_Facturas">
+            <EntityTypeMapping TypeName="RinconLetrasBDModel.Tb_Facturas">
+              <MappingFragment StoreEntitySet="Tb_Facturas">
+                <ScalarProperty Name="IdFactura" ColumnName="IdFactura" />
+                <ScalarProperty Name="FechaFactura" ColumnName="FechaFactura" />
+                <ScalarProperty Name="MontoTotal" ColumnName="MontoTotal" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tb_Generos">
+            <EntityTypeMapping TypeName="RinconLetrasBDModel.Tb_Generos">
+              <MappingFragment StoreEntitySet="Tb_Generos">
+                <ScalarProperty Name="IdGenero" ColumnName="IdGenero" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tb_Libros">
+            <EntityTypeMapping TypeName="RinconLetrasBDModel.Tb_Libros">
+              <MappingFragment StoreEntitySet="Tb_Libros">
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="IdLibro" ColumnName="IdLibro" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="CantidadInventario" ColumnName="CantidadInventario" />
+                <ScalarProperty Name="IdEditorial" ColumnName="IdEditorial" />
+                <ScalarProperty Name="IdGenero" ColumnName="IdGenero" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tb_Roles">
+            <EntityTypeMapping TypeName="RinconLetrasBDModel.Tb_Roles">
+              <MappingFragment StoreEntitySet="Tb_Roles">
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="NombreRol" ColumnName="NombreRol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tb_Ubicacion">
+            <EntityTypeMapping TypeName="RinconLetrasBDModel.Tb_Ubicacion">
+              <MappingFragment StoreEntitySet="Tb_Ubicacion">
+                <ScalarProperty Name="IdUbicacion" ColumnName="IdUbicacion" />
+                <ScalarProperty Name="Numero_estante" ColumnName="Numero_estante" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tb_Ubicaciones">
+            <EntityTypeMapping TypeName="RinconLetrasBDModel.Tb_Ubicaciones">
+              <MappingFragment StoreEntitySet="Tb_Ubicaciones">
+                <ScalarProperty Name="IdUbicacion" ColumnName="IdUbicacion" />
+                <ScalarProperty Name="IdLibro" ColumnName="IdLibro" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tb_Usuarios">
+            <EntityTypeMapping TypeName="RinconLetrasBDModel.Tb_Usuarios">
+              <MappingFragment StoreEntitySet="Tb_Usuarios">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="CorreoElectronico" ColumnName="CorreoElectronico" />
+                <ScalarProperty Name="Contrasenna" ColumnName="Contrasenna" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Tb_AutoresLibros" TypeName="RinconLetrasBDModel.Tb_AutoresLibros" StoreEntitySet="Tb_AutoresLibros">
+            <EndProperty Name="Tb_Autores">
+              <ScalarProperty Name="IdAutor" ColumnName="IdAutor" />
+            </EndProperty>
+            <EndProperty Name="Tb_Libros">
+              <ScalarProperty Name="IdLibro" ColumnName="Id_libro" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="RegistrarCliente" FunctionName="RinconLetrasBDModel.Store.RegistrarCliente" />
+          <FunctionImportMapping FunctionImportName="ValidarUsuario" FunctionName="RinconLetrasBDModel.Store.ValidarUsuario">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RinconLetrasBDModel.ValidarUsuario_Result">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+                <ScalarProperty Name="CorreoElectronico" ColumnName="CorreoElectronico" />
+                <ScalarProperty Name="Contrasenna" ColumnName="Contrasenna" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

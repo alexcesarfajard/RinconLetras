@@ -12,7 +12,7 @@ namespace RinconLetras.Services
         {
             var sesion = filterContext.HttpContext.Session;
 
-            if (sesion["IdEmpleados"] == null)
+            if (sesion["IdUsuario"] == null)
             {
                 filterContext.Result = new RedirectResult("~/Home/Index");
             }

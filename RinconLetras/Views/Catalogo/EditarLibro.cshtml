@@ -1,0 +1,63 @@
+﻿@model RinconLetras.Models.Libro
+@{
+    ViewBag.Title = "Editar Libro";
+    Layout = "~/Views/Shared/_LayoutInterno.cshtml";
+}
+
+<div class="container mt-5" style="max-width: 600px;">
+    <h3 class="text-center mb-4">Editar Libro</h3>
+
+    @using (Html.BeginForm("EditarLibro", "Catalogo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(m => m.IdLibro)
+
+        <div class="mb-3">
+            <label class="form-label">Título</label>
+            @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" })
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Precio</label>
+            @Html.TextBoxFor(m => m.Precio, new { @class = "form-control", type = "text" })
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Cantidad en Inventario</label>
+            @Html.TextBoxFor(m => m.CantidadInventario, new { @class = "form-control", type = "number" })
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Editorial</label>
+            @Html.DropDownList("IdEditorial", (SelectList)ViewBag.Editoriales, "-- Seleccione --", new { @class = "form-select" })
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Género</label>
+            @Html.DropDownList("IdGenero", (SelectList)ViewBag.Generos, "-- Seleccione --", new { @class = "form-select" })
+        </div>
+
+        <!-- Mostrar imagen actual -->
+        <div class="form-group mt-3 text-center">
+            <label style="font-weight:bold;">Imagen actual</label><br />
+            @if (!string.IsNullOrEmpty(Model.Imagen))
+            {
+                <img src="@Url.Content(Model.Imagen)" alt="Imagen del libro" style="max-width:150px; border-radius:10px; border:1px solid #ccc;" />
+            }
+            else
+            {
+                <p><i>No hay imagen registrada</i></p>
+            }
+        </div>
+
+        <!-- Subir nueva imagen -->
+        <div class="form-group mt-3">
+            <label class="form-label">Nueva imagen (opcional)</label>
+            <input type="file" name="archivoImagen" class="form-control" accept="image/*" />
+        </div>
+
+        <div class="text-end mt-4">
+            <button type="submit" class="btn btn-success">Guardar Cambios</button>
+            <a href="@Url.Action("VerCatalogo", "Catalogo")" class="btn btn-danger">Cancelar</a>
+        </div>
+    }
+</div>

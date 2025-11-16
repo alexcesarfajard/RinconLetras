@@ -10,14 +10,15 @@
 namespace RinconLetras.EF
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class ValidarEmpleado_Result
+    public partial class Tb_DetallesFacturas
     {
-        public int IdEmpleados { get; set; }
-        public string NombreEmpleado { get; set; }
-        public string CorreoElectronico { get; set; }
-        public string Contrasenna { get; set; }
-        public Nullable<int> Activo { get; set; }
-        public Nullable<int> NumeroCarnet { get; set; }
+        public int IdFactura { get; set; }
+        public int Id_libro { get; set; }
+        public Nullable<int> CantidadComprada { get; set; }
+    
+        public virtual Tb_Facturas Tb_Facturas { get; set; }
+        public virtual Tb_Libros Tb_Libros { get; set; }
     }
 }

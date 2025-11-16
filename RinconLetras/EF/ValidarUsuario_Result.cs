@@ -10,13 +10,15 @@
 namespace RinconLetras.EF
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Tb_Clientes
+    public partial class ValidarUsuario_Result
     {
-        public int IdCliente { get; set; }
-        public string NombreCliente { get; set; }
-        public long TarjetaCliente { get; set; }
-        public string Correo { get; set; }
+        public int IdUsuario { get; set; }
+        public string NombreUsuario { get; set; }
+        public string CorreoElectronico { get; set; }
+        public string Contrasenna { get; set; }
+        public Nullable<int> Activo { get; set; }
+        public Nullable<int> Identificacion { get; set; }
+        public Nullable<int> IdRol { get; set; }
     }
 }

@@ -129,56 +129,62 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\EmpleadoController.cs" />
+    <Compile Include="Controllers\CatalogoController .cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="EF\RinconLetrasBD.Context.cs">
+    <Compile Include="EF\RinconLetrasBDEntities1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>RinconLetrasBD.Context.tt</DependentUpon>
+      <DependentUpon>RinconLetrasBDEntities1.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\RinconLetrasBD.cs">
+    <Compile Include="EF\RinconLetrasBDEntities1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>RinconLetrasBD.tt</DependentUpon>
+      <DependentUpon>RinconLetrasBDEntities1.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\RinconLetrasBD.Designer.cs">
+    <Compile Include="EF\RinconLetrasBDEntities1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>RinconLetrasBD.edmx</DependentUpon>
+      <DependentUpon>RinconLetrasBDEntities1.edmx</DependentUpon>
     </Compile>
     <Compile Include="EF\Tb_Autores.cs">
-      <DependentUpon>RinconLetrasBD.tt</DependentUpon>
+      <DependentUpon>RinconLetrasBDEntities1.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\Tb_Clientes.cs">
-      <DependentUpon>RinconLetrasBD.tt</DependentUpon>
+    <Compile Include="EF\Tb_DetallesFacturas.cs">
+      <DependentUpon>RinconLetrasBDEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Tb_Editoriales.cs">
-      <DependentUpon>RinconLetrasBD.tt</DependentUpon>
+      <DependentUpon>RinconLetrasBDEntities1.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\Tb_Empleados.cs">
-      <DependentUpon>RinconLetrasBD.tt</DependentUpon>
+    <Compile Include="EF\Tb_Facturas.cs">
+      <DependentUpon>RinconLetrasBDEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Tb_Generos.cs">
-      <DependentUpon>RinconLetrasBD.tt</DependentUpon>
+      <DependentUpon>RinconLetrasBDEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Tb_Libros.cs">
-      <DependentUpon>RinconLetrasBD.tt</DependentUpon>
+      <DependentUpon>RinconLetrasBDEntities1.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\Tb_Puestos.cs">
-      <DependentUpon>RinconLetrasBD.tt</DependentUpon>
+    <Compile Include="EF\Tb_Roles.cs">
+      <DependentUpon>RinconLetrasBDEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Tb_Ubicacion.cs">
-      <DependentUpon>RinconLetrasBD.tt</DependentUpon>
+      <DependentUpon>RinconLetrasBDEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Tb_Ubicaciones.cs">
-      <DependentUpon>RinconLetrasBD.tt</DependentUpon>
+      <DependentUpon>RinconLetrasBDEntities1.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\ValidarEmpleado_Result.cs">
-      <DependentUpon>RinconLetrasBD.tt</DependentUpon>
+    <Compile Include="EF\Tb_Usuarios.cs">
+      <DependentUpon>RinconLetrasBDEntities1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\ValidarUsuario_Result.cs">
+      <DependentUpon>RinconLetrasBDEntities1.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Libro.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Empleado.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -201,15 +207,15 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
-    <Content Include="EF\RinconLetrasBD.Context.tt">
+    <Content Include="EF\RinconLetrasBDEntities1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RinconLetrasBD.edmx</DependentUpon>
-      <LastGenOutput>RinconLetrasBD.Context.cs</LastGenOutput>
+      <DependentUpon>RinconLetrasBDEntities1.edmx</DependentUpon>
+      <LastGenOutput>RinconLetrasBDEntities1.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="EF\RinconLetrasBD.tt">
+    <Content Include="EF\RinconLetrasBDEntities1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RinconLetrasBD.edmx</DependentUpon>
-      <LastGenOutput>RinconLetrasBD.cs</LastGenOutput>
+      <DependentUpon>RinconLetrasBDEntities1.edmx</DependentUpon>
+      <LastGenOutput>RinconLetrasBDEntities1.cs</LastGenOutput>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -220,12 +226,12 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="EF\RinconLetrasBD.edmx">
+    <EntityDeploy Include="EF\RinconLetrasBDEntities1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>RinconLetrasBD.Designer.cs</LastGenOutput>
+      <LastGenOutput>RinconLetrasBDEntities1.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="EF\RinconLetrasBD.edmx.diagram">
-      <DependentUpon>RinconLetrasBD.edmx</DependentUpon>
+    <Content Include="EF\RinconLetrasBDEntities1.edmx.diagram">
+      <DependentUpon>RinconLetrasBDEntities1.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
@@ -256,11 +262,18 @@
     <Content Include="Views\Shared\_LayoutInterno.cshtml" />
     <Content Include="Views\Home\RecuperarAcceso.cshtml" />
     <Content Include="Views\Home\Principal.cshtml" />
+    <Content Include="Views\Catalogo\VerCatalogo.cshtml" />
+    <Content Include="Views\Catalogo\RegistrarLibro.cshtml" />
     <Content Include="Views\Clientes\RegistrarCliente.cshtml" />
     <Content Include="Views\Clientes\VerClientes.cshtml" />
+    <Content Include="Views\Catalogo\EditarLibro.cshtml" />
+    <Content Include="Views\Empleados\VerEmpleados.cshtml" />
+    <Content Include="Views\Home\Usuario.cshtml" />
+    <Content Include="Views\Shared\_LayoutUsuario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Imagenes\libros\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

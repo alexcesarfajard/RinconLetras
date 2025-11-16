@@ -1,4 +1,4 @@
-@model List<RinconLetras.Models.Libro>
+﻿@model List<RinconLetras.Models.Libro>
 
 @{
     ViewBag.Title = "Catálogo de Libros";
@@ -15,18 +15,21 @@
         <div class="alert alert-danger text-center shadow-sm">@ViewBag.Mensaje</div>
     }
 
-    <div class="card card-catalogo">
+    <div class="card card-catalogo mt-3 shadow-sm">
         <div class="card-body p-4">
             <div class="table-responsive">
                 <table class="table table-striped table-hover align-middle text-center tabla-catalogo">
-                    <thead>
+                    <thead class="table-primary">
                         <tr>
                             <th>#</th>
+                            <th>Imagen</th>
                             <th>Título</th>
                             <th>Precio</th>
                             <th>Cantidad</th>
                             <th>Editorial</th>
                             <th>Género</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -37,19 +40,68 @@
                             {
                                 <tr>
                                     <td>@contador</td>
+
+                                    <!-- Imagen -->
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(item.Imagen))
+                                        {
+                                            <img src="@Url.Content(item.Imagen)" alt="Imagen de @item.Nombre" width="80" height="100" style="object-fit: cover; border-radius: 8px;" />
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">Sin imagen</span>
+                                        }
+                                    </td>
+
                                     <td>@item.Nombre</td>
                                     <td>₡@String.Format("{0:N2}", item.Precio)</td>
                                     <td>@item.CantidadInventario</td>
                                     <td>@item.Editorial</td>
                                     <td>@item.Genero</td>
+
+                                    <td>
+                                        @if (item.Activo)
+                                        {
+                                            <span class="badge bg-success">Activo</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-danger">Inactivo</span>
+                                        }
+                                    </td>
+
+                                    <td>
+                                        <a href="@Url.Action("EditarLibro", "Catalogo", new { id = item.IdLibro })"
+                                           class="btn btn-warning btn-sm">
+                                            <i class="fas fa-edit"></i> Editar
+                                        </a>
+
+                                        @if (item.Activo)
+                                        {
+                                            <a href="@Url.Action("CambiarEstado", "Catalogo", new { id = item.IdLibro })"
+                                               class="btn btn-outline-danger btn-sm"
+                                               onclick="return confirm('¿Deseas inactivar este libro?');">
+                                                <i class="fas fa-ban"></i> Inactivar
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("CambiarEstado", "Catalogo", new { id = item.IdLibro })"
+                                               class="btn btn-outline-success btn-sm"
+                                               onclick="return confirm('¿Deseas activar este libro?');">
+                                                <i class="fas fa-check"></i> Activar
+                                            </a>
+                                        }
+                                    </td>
                                 </tr>
                                 contador++;
                             }
+
                         }
                         else
                         {
                             <tr>
-                                <td colspan="6" class="texto-vacio">
+                                <td colspan="9" class="texto-vacio">
                                     <i class="fas fa-info-circle fs-3"></i>
                                     <p>No hay libros disponibles en este momento.</p>
                                 </td>
@@ -59,13 +111,17 @@
                 </table>
             </div>
 
-            <div class=" text-end mb-3">
-                <a href="@Url.Action("RegistrarLibro", "Catalogo")" class="btn btn-outline-success">
-                    Agregar Nuevo Libro
+            <div class="text-end mt-3">
+                <a href="@Url.Action("RegistrarLibro", "Catalogo")" class="btn btn-success">
+                    <i class="fas fa-plus"></i> Agregar Nuevo Libro
                 </a>
             </div>
-
-
         </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="@Url.Action("Principal", "Home")" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Regresar
+        </a>
     </div>
 </div>

@@ -17,6 +17,7 @@ namespace RinconLetras.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Tb_Libros()
         {
+            this.Tb_DetallesFacturas = new HashSet<Tb_DetallesFacturas>();
             this.Tb_Ubicaciones = new HashSet<Tb_Ubicaciones>();
             this.Tb_Autores = new HashSet<Tb_Autores>();
         }
@@ -27,7 +28,11 @@ namespace RinconLetras.EF
         public Nullable<int> CantidadInventario { get; set; }
         public Nullable<int> IdEditorial { get; set; }
         public Nullable<int> IdGenero { get; set; }
+        public bool Activo { get; set; }
+        public string Imagen { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tb_DetallesFacturas> Tb_DetallesFacturas { get; set; }
         public virtual Tb_Editoriales Tb_Editoriales { get; set; }
         public virtual Tb_Generos Tb_Generos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

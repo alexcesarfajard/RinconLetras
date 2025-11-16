@@ -27,12 +27,18 @@ namespace RinconLetras.Controllers
 
             using (var context = new RinconLetrasBDEntities1())
             {
-                var resultado = context.ValidarEmpleado(empleado.CorreoElectronico, empleado.Contrasenna).FirstOrDefault();
+                var resultado = context.Tb_Usuarios.Include("Tb_Roles")
+                    .Where(x => x.CorreoElectronico == empleado.CorreoElectronico && x.Contrasenna == empleado.Contrasenna && x.Activo == 1)
+                    .FirstOrDefault();
+
+                //var resultado = context.ValidarUsuario(empleado.CorreoElectronico, empleado.Contrasenna).FirstOrDefault();
 
                 if (resultado != null)
                 {
-                    Session["NombreEmpleado"] = resultado.NombreEmpleado;
-                    Session["IdEmpleados"] = resultado.IdEmpleados;
+                    Session["Nombre"] = resultado.NombreUsuario;
+                    Session["IdUsuario"] = resultado.IdUsuario;
+                    Session["IdRol"] = resultado.IdRol;
+                    Session["NombreRol"] = resultado.Tb_Roles.NombreRol;
                     return RedirectToAction("Principal", "Home");
                 }
 
@@ -43,6 +49,8 @@ namespace RinconLetras.Controllers
         }
 
         #endregion
+
+
 
         public ActionResult RecuperarAcceso()
         {
@@ -65,5 +73,39 @@ namespace RinconLetras.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+
+        [HttpGet]
+        public ActionResult Usuario()
+        {
+            using (var context = new RinconLetrasBDEntities1())
+            {
+                try
+                {
+                    var resultado = context.Tb_Libros
+                        .Include("Tb_Editoriales")
+                        .Include("Tb_Generos")
+                        .ToList();
+
+                    var datos = resultado.Select(l => new Libro
+                    {
+                        IdLibro = l.IdLibro,
+                        Nombre = l.Nombre,
+                        Precio = (decimal)l.Precio,
+                        CantidadInventario = (int)l.CantidadInventario,
+                        Editorial = l.Tb_Editoriales != null ? l.Tb_Editoriales.Nombre : "Sin editorial",
+                        Genero = l.Tb_Generos != null ? l.Tb_Generos.Nombre : "Sin género",
+                        Activo = (bool)l.Activo,
+                        Imagen = l.Imagen
+                    }).ToList();
+
+                    return View(datos);
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Mensaje = "Error al cargar el catálogo: " + ex.Message;
+                    return View(new List<Libro>());
+                }
+            }
+        }
     }
 }

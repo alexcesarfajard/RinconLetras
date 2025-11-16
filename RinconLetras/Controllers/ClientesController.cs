@@ -22,9 +22,13 @@ namespace RinconLetras.Controllers
         {
             using (var context = new RinconLetrasBDEntities1())
             {
-                var resultado = context.RegistrarCliente(cliente.NombreCliente, cliente.TarjetaCliente, cliente.Correo);
+                var resultado = context.RegistrarCliente(cliente.NombreCliente, cliente.FechaNacimiento, cliente.Identificacion, cliente.CorreoElectronico, cliente.Contrasenna);
 
-                
+                /* alex
+                Sí se están guardando los clientes en la base de datos pero no aparece el mensaje "información registrada"
+                en cambio, pasa directamente al Else y se muestra que hubo un error. REVISAR
+                */
+
                 if(resultado > 0)
                 {
                     ViewBag.Mensaje = "Información registrada";
@@ -41,25 +45,26 @@ namespace RinconLetras.Controllers
         [HttpGet]
         public ActionResult VerClientes()
         {
-            using(var context = new RinconLetrasBDEntities1())
+            using (var context = new RinconLetrasBDEntities1())
             {
-                //Traer el objeto de la BD
-                var resultado = context.Tb_Clientes.ToList();
+                var lista = context.Tb_Usuarios
+                    .Where(e => e.IdRol == 1) //Filtro para traer solo los usuarios tengan rol 1 (Usuario cliente)
+                    .Select(e => new Cliente
+                    {
+                        IdCliente = e.IdUsuario,
+                        NombreCliente = e.NombreUsuario,
+                        FechaNacimiento = (System.DateTime)e.FechaNacimiento,
+                        Identificacion = (int)e.Identificacion,
+                        IdRol = (int)e.IdRol,
+                        Activo = (int)e.Activo,
+                        CorreoElectronico = e.CorreoElectronico,
+                        Contrasenna = e.Contrasenna
+                    }).ToList();
 
-                //Objeto propio
-                var datos = resultado.Select(p => new Cliente()
-                {
-                    IdCliente = p.IdCliente,
-                    NombreCliente = p.NombreCliente,
-                    TarjetaCliente = p.TarjetaCliente,
-                    Correo = p.Correo
-                }).ToList();
-
-                return View(datos);
+                return View(lista);
             }
-
-            
         }
+
 
     }
 }

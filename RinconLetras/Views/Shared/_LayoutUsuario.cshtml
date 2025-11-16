@@ -1,7 +1,6 @@
 ﻿@{
-    var nombre = (Session["Nombre"] == null ? "Invitado" : Session["Nombre"].ToString());
-    var IdRol = (Session["IdRol"] == null ? "Pendiente" : Session["IdRol"].ToString());
-    var NombreRol = (Session["NombreRol"] == null ? "Pendiente" : Session["NombreRol"].ToString());
+    var nombreEmpleado = (Session["NombreUsuario"] == null ? "Invitado" : Session["NombreUsuario"].ToString());
+    var Nombre_puesto = (Session["Nombre_puesto"] == null ? "Pendiente" : Session["PerfilUsuario"].ToString());
 }
 
 <!DOCTYPE html>
@@ -18,20 +17,20 @@
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 
     <style>
-       
+
         .navbar-dark.bg-dark,
         .sb-sidenav-dark {
-            background-color: #1E3A8A !important; 
+            background-color: #1E3A8A !important;
         }
 
             .sb-sidenav-dark .nav-link,
             .navbar-brand,
             .sb-sidenav-menu-heading {
-                color: #f8f9fa !important; 
+                color: #f8f9fa !important;
             }
 
                 .sb-sidenav-dark .nav-link:hover {
-                    background-color: #3B82F6 !important; 
+                    background-color: #3B82F6 !important;
                     color: #fff !important;
                 }
     </style>
@@ -39,23 +38,38 @@
 </head>
 
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <a class="navbar-brand ps-3" href="index.html">Rincón de las Letras</a>
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark ">
+        <a class="navbar-brand ps-3" href="@Url.Action("Usuario","Home")">Rincón de las Letras</a>
 
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle">
             <i class="fas fa-bars"></i>
         </button>
 
-        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-user fa-fw"></i> @nombre (@NombreRol)
+        <form class="d-flex mx-auto me-2" style="width: 30%;" method="get" action="@Url.Action("Buscar", "Home")">
+            <input class="form-control me-2" type="search" name="query" placeholder="Buscar libros..." aria-label="Buscar" />
+            <button class="btn btn-outline-light" type="submit">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
+
+        <ul class="navbar-nav ms-auto me-3 me-lg-4 d-flex align-items-center">
+
+
+            <li class="nav-item">
+                <a class="nav-link text-white" href="@Url.Action("Perfil","Home")">
+                    <i class="fas fa-user fa-fw"></i>
                 </a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#!">Configuración</a></li>
-                    <li><hr class="dropdown-divider" /></li>
-                    <li><a class="dropdown-item" href="@Url.Action("CerrarSesion","Home")">Cerrar sesión</a></li>
-                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="@Url.Action("Carrito", "Home")">
+                    <i class="fas fa-shopping-cart"></i>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white ms-1" href="@Url.Action("CerrarSesion", "Home")">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
             </li>
         </ul>
     </nav>
@@ -67,46 +81,33 @@
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Opciones</div>
 
-                        <a class="nav-link" href="@Url.Action("Principal","Home")">
+                        <a class="nav-link" href="@Url.Action("Usuario","Home")">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Principal
                         </a>
 
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseEmpleados">
-                            <div class="sb-nav-link-icon"><i class="fas fa-user-tie"></i></div>
-                            Empleados
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapseEmpleados" data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="@Url.Action("VerEmpleados", "Empleados")">Ver Empleados</a>
-                            </nav>
-                        </div>
-
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseClientes">
-                            <div class="sb-nav-link-icon"><i class="fas fa-user-friends"></i></div>
-                            Clientes
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapseClientes" data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="@Url.Action("RegistrarCliente", "Clientes")">Registrar cliente</a>
-                                <a class="nav-link" href="@Url.Action("VerClientes", "Clientes")">Ver clientes</a>
-                            </nav>
-                        </div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCatalogo">
                             <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
-                            Catalogo
+                            Libros
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapseCatalogo" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="@Url.Action("VerCatalogo", "Catalogo")">Ver Catálogo</a>
-                                <a class="nav-link" href="@Url.Action("RegistrarLibro", "Catalogo")">Registrar Libro</a>
+                                <a class="nav-link" href="@Url.Action("VerCatalogo", "Catalogo")">Acción</a>
+                                <a class="nav-link" href="@Url.Action("RegistrarLibro", "Catalogo")">Romance</a>
+                                <a class="nav-link" href="@Url.Action("RegistrarLibro", "Catalogo")">Ciencia</a>
+                                <a class="nav-link" href="@Url.Action("RegistrarLibro", "Catalogo")">Terror</a>
+                                <a class="nav-link" href="@Url.Action("RegistrarLibro", "Catalogo")">Ficción</a>
                             </nav>
-                            </div>
                         </div>
+
+                        <a class="nav-link" href="@Url.Action("VerClientes", "Clientes")">
+                            <div class="sb-nav-link-icon"><i class="fas fa-user-friends"></i></div>
+                            Encuéntranos
+                        </a>
+  
                     </div>
+                </div>
             </nav>
         </div>
 

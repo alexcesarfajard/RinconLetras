@@ -1,4 +1,4 @@
-@model RinconLetras.Models.Libro
+﻿@model RinconLetras.Models.Libro
 @{
     ViewBag.Title = "Registrar Libro";
     Layout = "~/Views/Shared/_LayoutInterno.cshtml";
@@ -17,7 +17,8 @@
         </div>
     }
 
-    @using (Html.BeginForm("RegistrarLibro", "Catalogo", FormMethod.Post))
+    @using (Html.BeginForm("RegistrarLibro", "Catalogo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
     {
         <div style="background:white; border:2px solid #003366; border-radius:10px; padding:25px;">
 
@@ -44,6 +45,10 @@
             <div class="mb-3">
                 <label style="font-weight:bold; color:#003366;">Género</label>
                 @Html.DropDownList("IdGenero", (SelectList)ViewBag.Generos, "-- Seleccione un género --", new { @class = "form-select", style = "max-width:320px; margin:auto;" })
+            </div>
+            <div class="form-group">
+                <label>Imagen del libro</label>
+                <input type="file" name="archivoImagen" class="form-control" accept="image/*" />
             </div>
 
             <div style="margin-top:15px;">

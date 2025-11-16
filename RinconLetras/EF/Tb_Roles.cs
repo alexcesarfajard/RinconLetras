@@ -12,18 +12,18 @@ namespace RinconLetras.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class Tb_Puestos
+    public partial class Tb_Roles
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Tb_Puestos()
+        public Tb_Roles()
         {
-            this.Tb_Empleados = new HashSet<Tb_Empleados>();
+            this.Tb_Usuarios = new HashSet<Tb_Usuarios>();
         }
     
-        public int IdPuesto { get; set; }
-        public string Nombre_puesto { get; set; }
+        public int IdRol { get; set; }
+        public string NombreRol { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tb_Empleados> Tb_Empleados { get; set; }
+        public virtual ICollection<Tb_Usuarios> Tb_Usuarios { get; set; }
     }
 }

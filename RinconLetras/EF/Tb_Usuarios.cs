@@ -12,18 +12,25 @@ namespace RinconLetras.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class Tb_Empleados
+    public partial class Tb_Usuarios
     {
-        public int IdEmpleados { get; set; }
-        public string NombreEmpleado { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Tb_Usuarios()
+        {
+            this.Tb_Facturas = new HashSet<Tb_Facturas>();
+        }
+    
+        public int IdUsuario { get; set; }
+        public string NombreUsuario { get; set; }
         public Nullable<System.DateTime> FechaNacimiento { get; set; }
-        public Nullable<decimal> Salario { get; set; }
-        public Nullable<int> NumeroCarnet { get; set; }
-        public Nullable<int> IdPuesto { get; set; }
+        public Nullable<int> Identificacion { get; set; }
+        public Nullable<int> IdRol { get; set; }
         public Nullable<int> Activo { get; set; }
         public string CorreoElectronico { get; set; }
         public string Contrasenna { get; set; }
     
-        public virtual Tb_Puestos Tb_Puestos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tb_Facturas> Tb_Facturas { get; set; }
+        public virtual Tb_Roles Tb_Roles { get; set; }
     }
 }

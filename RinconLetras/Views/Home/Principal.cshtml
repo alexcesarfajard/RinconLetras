@@ -1,6 +1,68 @@
 ﻿@{
-    ViewBag.Title = "Principal";
+    ViewBag.Title = "Panel Administrativo";
     Layout = "~/Views/Shared/_LayoutInterno.cshtml";
 }
 
-<h4>Bienvenido usuario, estás en la práctica #2 de la clase de Programación Avanzada Web</h4>
+<div class="container mt-5">
+
+    <h2 class="text-center mb-4" style="color:#004A99;">
+        <i class="fas fa-user-shield me-2"></i> Panel de Administración
+    </h2>
+
+    <p class="text-center fs-5 mb-5">
+        Bienvenido al sistema de gestión de la librería <strong>Rincón de Letras</strong>.
+        Aquí podrás administrar el catálogo, controlar inventario y gestionar datos.
+    </p>
+
+    <div class="row justify-content-center">
+
+        <!-- Card Ver Catálogo -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow border-0 h-100 text-center">
+                <div class="card-body">
+                    <i class="fas fa-book fa-3x mb-3" style="color:#004A99;"></i>
+                    <h5 class="card-title fw-bold">Catálogo de Libros</h5>
+                    <p class="card-text">Consulta todos los libros registrados en el sistema.</p>
+                    <a href="@Url.Action("VerCatalogo", "Catalogo")" class="btn btn-primary">Ver Catálogo</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card Registrar Libro -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow border-0 h-100 text-center">
+                <div class="card-body">
+                    <i class="fas fa-plus-circle fa-3x mb-3" style="color:#28a745;"></i>
+                    <h5 class="card-title fw-bold">Registrar Nuevo Libro</h5>
+                    <p class="card-text">Añade libros al inventario y completa sus detalles.</p>
+                    <a href="@Url.Action("RegistrarLibro", "Catalogo")" class="btn btn-success">Registrar Libro</a>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Ver empleados -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow border-0 h-100 text-center">
+                <div class="card-body">
+                    <i class="fas fa-users fa-3x mb-3" style="color:#007bff;"></i>
+                    <h5 class="card-title fw-bold">Ver Empleados</h5>
+                    <p class="card-text">Consulta la lista de empleados registrados en el sistema.</p>
+                    <a href="@Url.Action("VerEmpleados", "Empleados")" class="btn btn-outline-primary">Ver Empleados</a>
+                </div>
+            </div>
+        </div>
+        <!-- Ver clientes -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow border-0 h-100 text-center">
+                <div class="card-body">
+                    <i class="fas fa-users fa-3x mb-3" style="color:#007bff;"></i>
+                    <h5 class="card-title fw-bold">Ver Clientes</h5>
+                    <p class="card-text">Consulta la lista de clientes registrados en el sistema.</p>
+                    <a href="@Url.Action("VerClientes", "Clientes")" class="btn btn-outline-primary">Ver Clientes</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

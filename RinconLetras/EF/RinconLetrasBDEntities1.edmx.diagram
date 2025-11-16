@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9a7a0768da944c7d8386b86384763e68" Name="Diagram1">
+        <EntityTypeShape EntityType="RinconLetrasBDModel.Tb_Autores" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="RinconLetrasBDModel.Tb_DetallesFacturas" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RinconLetrasBDModel.Tb_Editoriales" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RinconLetrasBDModel.Tb_Facturas" Width="1.5" PointX="3" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RinconLetrasBDModel.Tb_Generos" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RinconLetrasBDModel.Tb_Libros" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RinconLetrasBDModel.Tb_Roles" Width="1.5" PointX="1.5" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RinconLetrasBDModel.Tb_Ubicacion" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RinconLetrasBDModel.Tb_Ubicaciones" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RinconLetrasBDModel.Tb_Usuarios" Width="1.5" PointX="0.75" PointY="10.5" IsExpanded="true" />
+        <AssociationConnector Association="RinconLetrasBDModel.FK_DetalleFactura_Factura" ManuallyRouted="false" />
+        <AssociationConnector Association="RinconLetrasBDModel.FK_DetalleFactura_Libro" ManuallyRouted="false" />
+        <AssociationConnector Association="RinconLetrasBDModel.FK_Libro_Editorial" ManuallyRouted="false" />
+        <AssociationConnector Association="RinconLetrasBDModel.FK_Factura_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="RinconLetrasBDModel.FK_Libro_Genero" ManuallyRouted="false" />
+        <AssociationConnector Association="RinconLetrasBDModel.FK_Ubicaciones_Libro" ManuallyRouted="false" />
+        <AssociationConnector Association="RinconLetrasBDModel.FK_Usuario_Rol" ManuallyRouted="false" />
+        <AssociationConnector Association="RinconLetrasBDModel.FK_Ubicaciones_Ubicacion" ManuallyRouted="false" />
+        <AssociationConnector Association="RinconLetrasBDModel.Tb_AutoresLibros" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
