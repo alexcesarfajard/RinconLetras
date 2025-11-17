@@ -129,10 +129,16 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AutoresController.cs" />
+    <Compile Include="Controllers\EditorialesController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
     <Compile Include="Controllers\CatalogoController .cs" />
     <Compile Include="Controllers\ClientesController.cs" />
+    <Compile Include="Controllers\GenerosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="EF\ConsultarCatalogoLibros_Result.cs">
+      <DependentUpon>RinconLetrasBDEntities1.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\RinconLetrasBDEntities1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -166,6 +172,9 @@
     <Compile Include="EF\Tb_Libros.cs">
       <DependentUpon>RinconLetrasBDEntities1.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\Tb_Nacionalidades.cs">
+      <DependentUpon>RinconLetrasBDEntities1.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\Tb_Roles.cs">
       <DependentUpon>RinconLetrasBDEntities1.tt</DependentUpon>
     </Compile>
@@ -184,6 +193,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Autor.cs" />
+    <Compile Include="Models\Editorial.cs" />
+    <Compile Include="Models\Genero.cs" />
     <Compile Include="Models\Libro.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Empleado.cs" />
@@ -270,6 +282,13 @@
     <Content Include="Views\Empleados\VerEmpleados.cshtml" />
     <Content Include="Views\Home\Usuario.cshtml" />
     <Content Include="Views\Shared\_LayoutUsuario.cshtml" />
+    <Content Include="Views\Empleados\RegistrarEmpleado.cshtml" />
+    <Content Include="Views\Editoriales\VerEditoriales.cshtml" />
+    <Content Include="Views\Editoriales\RegistrarEditorial.cshtml" />
+    <Content Include="Views\Generos\VerGeneros.cshtml" />
+    <Content Include="Views\Generos\RegistrarGenero.cshtml" />
+    <Content Include="Views\Autores\VerAutores.cshtml" />
+    <Content Include="Views\Autores\RegistrarAutor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

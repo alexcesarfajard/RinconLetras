@@ -40,7 +40,7 @@
 
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <a class="navbar-brand ps-3" href="index.html">Rincón de las Letras</a>
+        <a class="navbar-brand ps-3" href="@Url.Action("Principal","Home")">Rincón de las Letras</a>
 
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle">
             <i class="fas fa-bars"></i>
@@ -77,9 +77,11 @@
                             Empleados
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
+
                         <div class="collapse" id="collapseEmpleados" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="@Url.Action("VerEmpleados", "Empleados")">Ver Empleados</a>
+                                <a class="nav-link" href="@Url.Action("RegistrarEmpleado", "Empleados")">Registrar Empleado</a>
                             </nav>
                         </div>
 
@@ -94,6 +96,7 @@
                                 <a class="nav-link" href="@Url.Action("VerClientes", "Clientes")">Ver clientes</a>
                             </nav>
                         </div>
+
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCatalogo">
                             <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
                             Catalogo
@@ -104,8 +107,46 @@
                                 <a class="nav-link" href="@Url.Action("VerCatalogo", "Catalogo")">Ver Catálogo</a>
                                 <a class="nav-link" href="@Url.Action("RegistrarLibro", "Catalogo")">Registrar Libro</a>
                             </nav>
-                            </div>
                         </div>
+
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseEditoriales">
+                            <div class="sb-nav-link-icon"><i class="fas fa-compass fa-1x"></i></div>
+                            Editoriales
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseEditoriales" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="@Url.Action("VerEditoriales", "Editoriales")">Ver Editoriales</a>
+                                <a class="nav-link" href="@Url.Action("RegistrarEditorial", "Editoriales")">Registrar Editorial</a>
+                            </nav>
+                        </div>
+
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseGeneros">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-open fa-1x"></i></div>
+                            Generos
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseEditoriales" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="@Url.Action("VerGeneros", "Generos")">Ver Generos</a>
+                                <a class="nav-link" href="@Url.Action("RegistrarGenero", "Generos")">Registrar Editorial</a>
+                            </nav>
+                        </div>
+
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseAutores">
+                            <div class="sb-nav-link-icon"><i class="fas fa-pen-nib fa-1x"></i></div>
+                            Autores
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseAutores" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="@Url.Action("VerAutores", "Autores")">Ver Autores</a>
+                                <a class="nav-link" href="@Url.Action("RegistrarAutor", "Autores")">Registrar Autor</a>
+                            </nav>
+                        </div>
+
+
+                    </div>
                     </div>
             </nav>
         </div>

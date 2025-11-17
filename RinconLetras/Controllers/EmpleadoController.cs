@@ -35,13 +35,66 @@ namespace RinconLetras.Controllers
         [HttpGet]
         public ActionResult RegistrarEmpleado()
         {
+            CargarRoles();
             return View();
         }
 
         [HttpPost]
         public ActionResult RegistrarEmpleado(Empleado empleado)
         {
-            return View();
+
+            CargarRoles(); // volver a cargar en caso de que haya algun error
+
+            using (var context = new RinconLetrasBDEntities1())
+            {
+                var resultado = context.RegistrarEmpleado(
+                    empleado.NombreEmpleado,
+                    empleado.FechaNacimiento,
+                    empleado.Identificacion,
+                    empleado.CorreoElectronico,
+                    empleado.Contrasenna,
+                    empleado.IdRol
+                );
+
+                // se esta guardando pero muestra error al guardar la informacion REVISAR
+
+                if (resultado > 0)
+                {
+                    ViewBag.Mensaje = "Informacion registrada correctamente";
+                    return RedirectToAction("RegistrarEmpleado", "Empleados");
+                }
+                else
+                {
+                    ViewBag.Mensaje = "Error al guardar la informacion";
+                    return View();
+                }
+            }
+        }
+
+        private void CargarRoles()
+        {
+            using (var context = new RinconLetrasBDEntities1())
+            {
+                //Consulta a la BD
+                var resultado = context.Tb_Roles
+                    .Where(r => r.IdRol == 2 || r.IdRol == 3)
+                    .ToList();
+
+                //Convertirlo en un objeto SelectListItem
+                var datos = resultado.Select(c => new SelectListItem
+                {
+                    Value = c.IdRol.ToString(),
+                    Text = c.NombreRol
+                }).ToList();
+
+                datos.Insert(0, new SelectListItem
+                {
+                    Value = string.Empty,
+                    Text = "Seleccione"
+                });
+
+                ViewBag.ListaRoles = datos;
+            }
         }
 
 

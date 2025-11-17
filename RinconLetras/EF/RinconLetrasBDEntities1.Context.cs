@@ -37,6 +37,7 @@ namespace RinconLetras.EF
         public virtual DbSet<Tb_Ubicacion> Tb_Ubicacion { get; set; }
         public virtual DbSet<Tb_Ubicaciones> Tb_Ubicaciones { get; set; }
         public virtual DbSet<Tb_Usuarios> Tb_Usuarios { get; set; }
+        public virtual DbSet<Tb_Nacionalidades> Tb_Nacionalidades { get; set; }
     
         public virtual int RegistrarCliente(string nombreUsuario, Nullable<System.DateTime> fechaNacimiento, Nullable<int> identificacion, string correoElectronico, string contrasena)
         {
@@ -74,6 +75,40 @@ namespace RinconLetras.EF
                 new ObjectParameter("Contrasenna", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ValidarUsuario_Result>("ValidarUsuario", correoElectronicoParameter, contrasennaParameter);
+        }
+    
+        public virtual ObjectResult<ConsultarCatalogoLibros_Result> ConsultarCatalogoLibros()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarCatalogoLibros_Result>("ConsultarCatalogoLibros");
+        }
+    
+        public virtual int RegistrarEmpleado(string nombreUsuario, Nullable<System.DateTime> fechaNacimiento, Nullable<int> identificacion, string correoElectronico, string contrasenna, Nullable<int> idRol)
+        {
+            var nombreUsuarioParameter = nombreUsuario != null ?
+                new ObjectParameter("NombreUsuario", nombreUsuario) :
+                new ObjectParameter("NombreUsuario", typeof(string));
+    
+            var fechaNacimientoParameter = fechaNacimiento.HasValue ?
+                new ObjectParameter("FechaNacimiento", fechaNacimiento) :
+                new ObjectParameter("FechaNacimiento", typeof(System.DateTime));
+    
+            var identificacionParameter = identificacion.HasValue ?
+                new ObjectParameter("Identificacion", identificacion) :
+                new ObjectParameter("Identificacion", typeof(int));
+    
+            var correoElectronicoParameter = correoElectronico != null ?
+                new ObjectParameter("CorreoElectronico", correoElectronico) :
+                new ObjectParameter("CorreoElectronico", typeof(string));
+    
+            var contrasennaParameter = contrasenna != null ?
+                new ObjectParameter("Contrasenna", contrasenna) :
+                new ObjectParameter("Contrasenna", typeof(string));
+    
+            var idRolParameter = idRol.HasValue ?
+                new ObjectParameter("IdRol", idRol) :
+                new ObjectParameter("IdRol", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarEmpleado", nombreUsuarioParameter, fechaNacimientoParameter, identificacionParameter, correoElectronicoParameter, contrasennaParameter, idRolParameter);
         }
     }
 }

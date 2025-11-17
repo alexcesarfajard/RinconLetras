@@ -45,13 +45,14 @@
         <div class="col-md-4 mb-4">
             <div class="card shadow border-0 h-100 text-center">
                 <div class="card-body">
-                    <i class="fas fa-users fa-3x mb-3" style="color:#007bff;"></i>
+                    <i class="fas fa-user-tie fa-3x mb-3" style="color:#007bff;"></i>
                     <h5 class="card-title fw-bold">Ver Empleados</h5>
                     <p class="card-text">Consulta la lista de empleados registrados en el sistema.</p>
                     <a href="@Url.Action("VerEmpleados", "Empleados")" class="btn btn-outline-primary">Ver Empleados</a>
                 </div>
             </div>
         </div>
+
         <!-- Ver clientes -->
         <div class="col-md-4 mb-4">
             <div class="card shadow border-0 h-100 text-center">
@@ -62,7 +63,43 @@
                     <a href="@Url.Action("VerClientes", "Clientes")" class="btn btn-outline-primary">Ver Clientes</a>
                 </div>
             </div>
-
         </div>
+
+        <!-- Ver editoriales -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow border-0 h-100 text-center">
+                <div class="card-body">
+                    <i class="fas fa-compass fa-3x mb-3" style="color:#007bff;"></i>
+                    <h5 class="card-title fw-bold">Ver editoriales</h5>
+                    <p class="card-text">Consulta la lista de editoriales registradas en el sistema.</p>
+                    <a href="@Url.Action("VerEditoriales", "Editoriales")" class="btn btn-outline-primary">Ver editoriales</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ver generos de libros -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow border-0 h-100 text-center">
+                <div class="card-body">
+                    <i class="fas fa-book-open fa-3x mb-3" style="color:#007bff;"></i>
+                    <h5 class="card-title fw-bold">Ver generos de libros</h5>
+                    <p class="card-text">Consulta la lista de generos para los libros registradas en el sistema.</p>
+                    <a href="@Url.Action("VerGeneros", "Generos")" class="btn btn-outline-primary">Ver generos</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ver autores de libros -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow border-0 h-100 text-center">
+                <div class="card-body">
+                    <i class="fas fa-pen-nib fa-3x mb-3" style="color:#007bff;"></i>
+                    <h5 class="card-title fw-bold">Ver autores</h5>
+                    <p class="card-text">Consulta la lista de autores de libros registrados en el sistema.</p>
+                    <a href="@Url.Action("VerAutores", "Autores")" class="btn btn-outline-primary">Ver autores</a>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>

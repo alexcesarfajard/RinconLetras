@@ -10,8 +10,8 @@
             <PropertyRef Name="IdAutor" />
           </Key>
           <Property Name="IdAutor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre_Autor" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="Nacionalidad" Type="varchar" MaxLength="45" />
+          <Property Name="Nombre_Autor" Type="varchar" MaxLength="100" />
+          <Property Name="Nacionalidad" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Tb_AutoresLibros">
           <Key>
@@ -67,6 +67,13 @@
           <Property Name="IdGenero" Type="int" />
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="Imagen" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Tb_Nacionalidades">
+          <Key>
+            <PropertyRef Name="IdNacionalidad" />
+          </Key>
+          <Property Name="IdNacionalidad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nacionalidad" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Tb_Roles">
           <Key>
@@ -224,12 +231,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="ConsultarCatalogoLibros" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="RegistrarCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="NombreUsuario" Type="varchar" Mode="In" />
           <Parameter Name="FechaNacimiento" Type="date" Mode="In" />
           <Parameter Name="Identificacion" Type="int" Mode="In" />
           <Parameter Name="CorreoElectronico" Type="varchar" Mode="In" />
           <Parameter Name="Contrasena" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="RegistrarEmpleado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NombreUsuario" Type="varchar" Mode="In" />
+          <Parameter Name="FechaNacimiento" Type="datetime" Mode="In" />
+          <Parameter Name="Identificacion" Type="int" Mode="In" />
+          <Parameter Name="CorreoElectronico" Type="varchar" Mode="In" />
+          <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
+          <Parameter Name="IdRol" Type="int" Mode="In" />
         </Function>
         <Function Name="ValidarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CorreoElectronico" Type="varchar" Mode="In" />
@@ -243,6 +259,7 @@
           <EntitySet Name="Tb_Facturas" EntityType="Self.Tb_Facturas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tb_Generos" EntityType="Self.Tb_Generos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tb_Libros" EntityType="Self.Tb_Libros" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tb_Nacionalidades" EntityType="Self.Tb_Nacionalidades" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tb_Roles" EntityType="Self.Tb_Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tb_Ubicacion" EntityType="Self.Tb_Ubicacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tb_Ubicaciones" EntityType="Self.Tb_Ubicaciones" Schema="dbo" store:Type="Tables" />
@@ -297,8 +314,8 @@
             <PropertyRef Name="IdAutor" />
           </Key>
           <Property Name="IdAutor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre_Autor" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Nacionalidad" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre_Autor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Nacionalidad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Tb_Libros" Relationship="Self.Tb_AutoresLibros" FromRole="Tb_Autores" ToRole="Tb_Libros" />
         </EntityType>
         <EntityType Name="Tb_DetallesFacturas">
@@ -559,6 +576,16 @@
             <Parameter Name="CorreoElectronico" Mode="In" Type="String" />
             <Parameter Name="Contrasenna" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="ConsultarCatalogoLibros" ReturnType="Collection(RinconLetrasBDModel.ConsultarCatalogoLibros_Result)" />
+          <FunctionImport Name="RegistrarEmpleado">
+            <Parameter Name="NombreUsuario" Mode="In" Type="String" />
+            <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
+            <Parameter Name="Identificacion" Mode="In" Type="Int32" />
+            <Parameter Name="CorreoElectronico" Mode="In" Type="String" />
+            <Parameter Name="Contrasenna" Mode="In" Type="String" />
+            <Parameter Name="IdRol" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Tb_Nacionalidades" EntityType="RinconLetrasBDModel.Tb_Nacionalidades" />
         </EntityContainer>
         <ComplexType Name="ValidarUsuario_Result">
           <Property Type="Int32" Name="IdUsuario" Nullable="false" />
@@ -569,6 +596,23 @@
           <Property Type="Int32" Name="Identificacion" Nullable="true" />
           <Property Type="Int32" Name="IdRol" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="ConsultarCatalogoLibros_Result">
+          <Property Type="Int32" Name="IdLibro" Nullable="false" />
+          <Property Type="String" Name="Titulo" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Precio" Nullable="true" Precision="8" Scale="2" />
+          <Property Type="Int32" Name="CantidadInventario" Nullable="true" />
+          <Property Type="String" Name="Editorial" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Genero" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Autor" Nullable="false" MaxLength="45" />
+          <Property Type="String" Name="Estante" Nullable="true" MaxLength="45" />
+        </ComplexType>
+        <EntityType Name="Tb_Nacionalidades">
+          <Key>
+            <PropertyRef Name="IdNacionalidad" />
+          </Key>
+          <Property Name="IdNacionalidad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nacionalidad" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -696,6 +740,29 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ConsultarCatalogoLibros" FunctionName="RinconLetrasBDModel.Store.ConsultarCatalogoLibros">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RinconLetrasBDModel.ConsultarCatalogoLibros_Result">
+                <ScalarProperty Name="IdLibro" ColumnName="IdLibro" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="CantidadInventario" ColumnName="CantidadInventario" />
+                <ScalarProperty Name="Editorial" ColumnName="Editorial" />
+                <ScalarProperty Name="Genero" ColumnName="Genero" />
+                <ScalarProperty Name="Autor" ColumnName="Autor" />
+                <ScalarProperty Name="Estante" ColumnName="Estante" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="RegistrarEmpleado" FunctionName="RinconLetrasBDModel.Store.RegistrarEmpleado" />
+          <EntitySetMapping Name="Tb_Nacionalidades">
+            <EntityTypeMapping TypeName="RinconLetrasBDModel.Tb_Nacionalidades">
+              <MappingFragment StoreEntitySet="Tb_Nacionalidades">
+                <ScalarProperty Name="Nacionalidad" ColumnName="Nacionalidad" />
+                <ScalarProperty Name="IdNacionalidad" ColumnName="IdNacionalidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

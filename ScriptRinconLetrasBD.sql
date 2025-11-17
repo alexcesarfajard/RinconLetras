@@ -9,6 +9,199 @@ GO
 
 -- TABLAS 
 
+CREATE TABLE Tb_Nacionalidades(
+    IdNacionalidad INT IDENTITY(1,1) PRIMARY KEY,
+    Nacionalidad VARCHAR(100) UNIQUE NOT NULL
+);
+
+INSERT INTO Tb_Nacionalidades (Nacionalidad) VALUES
+('Afganistana'),
+('Albana'),
+('Alemana'),
+('Andorrana'),
+('Angoleña'),
+('Antiguana y Barbudense'),
+('Saudí (Arabia Saudita)'),
+('Argelina'),
+('Argentina'),
+('Armenia'),
+('Australiana'),
+('Austriaca'),
+('Azerbaiyana'),
+('Bahameña'),
+('Bareiní'),
+('Bangladesí'),
+('Barbadense'),
+('Belga'),
+('Beliceña'),
+('Beninesa'),
+('Bielorrusa'),
+('Birmana'),
+('Boliviana'),
+('Bosnia'),
+('Botsuana'),
+('Brasileña'),
+('Bruneana'),
+('Búlgara'),
+('Burkinesa'),
+('Burundesa'),
+('Butanesa'),
+('Cabo Verdeana'),
+('Camboyana'),
+('Camerunesa'),
+('Canadiense'),
+('Catarí'),
+('Chadiana'),
+('Checa'),
+('Chilena'),
+('China'),
+('Chipriota'),
+('Colombiana'),
+('Comorense'),
+('Congoleña (Rep. del Congo)'),
+('Congoleña (Rep. Democrática del Congo)'),
+('Costarricense'),
+('Croata'),
+('Cubana'),
+('Danesa'),
+('Dominicana'),
+('Ecuatoriana'),
+('Egipcia'),
+('Emiratí (EAU)'),
+('Eritrea'),
+('Eslovaca'),
+('Eslovena'),
+('Española'),
+('Estadounidense'),
+('Estonia'),
+('Etíope'),
+('Fiyiana'),
+('Filipina'),
+('Finlandesa'),
+('Francesa'),
+('Gabonesa'),
+('Gambiana'),
+('Georgiana'),
+('Ghanesa'),
+('Granadina'),
+('Griega'),
+('Guatemalteca'),
+('Guineana'),
+('Guineana Ecuatoguineana'),
+('Guineana-Bisauense'),
+('Guyanesa'),
+('Haitiana'),
+('Hondureña'),
+('Húngara'),
+('India'),
+('Indonesia'),
+('Iraní'),
+('Iraquí'),
+('Irlandesa'),
+('Islandesa'),
+('Israelí'),
+('Italiana'),
+('Jamaiquina'),
+('Japonesa'),
+('Jordana'),
+('Kazaja'),
+('Keniata'),
+('Kirguisa'),
+('Kiribatiana'),
+('Kuwaití'),
+('Laosiana'),
+('Leonesa (Sierra Leona)'),
+('Lesotense'),
+('Letona'),
+('Libanesa'),
+('Liberiana'),
+('Libia'),
+('Liechtensteiniana'),
+('Lituana'),
+('Luxemburguesa'),
+('Macedonia del Norte'),
+('Malagache'),
+('Malasia'),
+('Malauí'),
+('Maldiva'),
+('Maliense'),
+('Maltésa'),
+('Marfileña (Costa de Marfil)'),
+('Marroquí'),
+('Marshallina'),
+('Mauriciana'),
+('Mauritana'),
+('Mexicana'),
+('Micronesia'),
+('Moldava'),
+('Monegasca'),
+('Mongola'),
+('Montenegrina'),
+('Mozambiqueña'),
+('Namibia'),
+('Nauruana'),
+('Nepalí'),
+('Nicaragüense'),
+('Nigerina'),
+('Nigeriana'),
+('Norcoreana'),
+('Noruega'),
+('Neozelandesa'),
+('Omání'),
+('Pakistaní'),
+('Palauana'),
+('Palestina'),
+('Panameña'),
+('Papú (Papúa Nueva Guinea)'),
+('Paraguaya'),
+('Peruana'),
+('Polaca'),
+('Portuguesa'),
+('Británica'),
+('Rumano'),
+('Rusa'),
+('Ruandesa'),
+('Samoana'),
+('Sanmarinense'),
+('Santo Tomense'),
+('Senegalesa'),
+('Serbia'),
+('Seychellense'),
+('Singapurense'),
+('Siria'),
+('Somalí'),
+('Sri Lanka'),
+('Suazi / Esuatini'),
+('Sudafricana'),
+('Sudanesa'),
+('Sudanesa del Sur'),
+('Sueca'),
+('Suiza'),
+('Surcoreana'),
+('Surinamesa'),
+('Tailandesa'),
+('Tanzana'),
+('Tayika'),
+('Timorense'),
+('Togolesa'),
+('Tongana'),
+('Trinitense'),
+('Tunecina'),
+('Turca'),
+('Turcomana'),
+('Tuvaluana'),
+('Ucraniana'),
+('Ugandesa'),
+('Uruguaya'),
+('Uzbeca'),
+('Vanuatuense'),
+('Venezolana'),
+('Vietnamita'),
+('Yemení'),
+('Yibutiana'),
+('Zambiana'),
+('Zimbabuense');
+
 -- T_Editoriales Tabla de editorales
 CREATE TABLE Tb_Editoriales (
     IdEditorial INT IDENTITY(1,1) PRIMARY KEY,
@@ -35,6 +228,12 @@ CREATE TABLE Tb_Autores (
     Nombre_Autor VARCHAR(45) NOT NULL,
     Nacionalidad VARCHAR(45)
 );
+
+ALTER TABLE Tb_Autores
+ALTER COLUMN Nacionalidad VARCHAR(100);
+
+ALTER TABLE Tb_Autores
+ALTER COLUMN Nombre_Autor VARCHAR(100);
 
 -- Tb_Clientes Tabla de los datos de los clientes eliminada 
 /*
@@ -311,3 +510,51 @@ END
 GO
 
 EXEC ConsultarCatalogoLibros;
+
+-- procedimiento almacenado para registrar un nuevo empleado
+CREATE PROCEDURE RegistrarEmpleado
+    @NombreUsuario      VARCHAR(45),
+    @FechaNacimiento    DATETIME,
+    @Identificacion     INT,
+    @CorreoElectronico  VARCHAR(200),
+    @Contrasenna        VARCHAR(100),
+    @IdRol              INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Validar si ya existe por correo o identificación
+    IF EXISTS (SELECT 1 FROM Tb_Usuarios 
+               WHERE CorreoElectronico = @CorreoElectronico 
+                  OR Identificacion = @Identificacion)
+    BEGIN
+        RETURN 0; -- Ya existe
+    END
+
+    BEGIN TRY
+        INSERT INTO Tb_Usuarios (
+            NombreUsuario,
+            FechaNacimiento,
+            Identificacion,
+            CorreoElectronico,
+            Contrasenna,
+            IdRol,
+            Activo
+        )
+        VALUES (
+            @NombreUsuario,
+            @FechaNacimiento,
+            @Identificacion,
+            @CorreoElectronico,
+            @Contrasenna,
+            @IdRol,
+            1
+        );
+
+        RETURN 1; -- Registro exitoso
+    END TRY
+    BEGIN CATCH
+        RETURN 0; -- Error al insertar
+    END CATCH
+END
+

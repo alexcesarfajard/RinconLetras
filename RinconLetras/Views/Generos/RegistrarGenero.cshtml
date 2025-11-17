@@ -1,0 +1,38 @@
+﻿@model RinconLetras.Models.Genero
+
+@{
+    ViewBag.Title = "RegistrarGenero";
+    Layout = "~/Views/Shared/_LayoutInterno.cshtml";
+}
+
+@if (ViewBag.Mensaje != null)
+{
+    <div class="alert alert-primary text-center">
+        @ViewBag.Mensaje
+    </div>
+}
+
+@using (Html.BeginForm("RegistrarGenero", "Generos", FormMethod.Post, new { @id = "FormRegistrarGenero" }))
+{
+    <div class="card shadow p-4" style="max-width: 600px; margin: 0 auto;">
+        <h4 class="mb-4 text-center">Registrar genero</h4>
+
+        <div class="mb-3">
+            <label for="Nombre" class="form-label">Nombre del genero</label>
+            @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control", @placeholder = "Ej: Aventura" })
+        </div>
+
+        <div class="mb-3">
+            <label for="Descripcion" class="form-label">Descripcion</label>
+            @Html.TextAreaFor(m => m.Descripcion, new { @class = "form-control", @placeholder = "Ej: Descripcion del genero", rows = "4" })
+        </div>
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary d-grid w-100">Proceder</button>
+        </div>
+        <a href="@Url.Action("Principal", "Home")" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Regresar
+        </a>
+    </div>
+}
+

@@ -24,6 +24,7 @@
         <AssociationConnector Association="RinconLetrasBDModel.FK_Usuario_Rol" ManuallyRouted="false" />
         <AssociationConnector Association="RinconLetrasBDModel.FK_Ubicaciones_Ubicacion" ManuallyRouted="false" />
         <AssociationConnector Association="RinconLetrasBDModel.Tb_AutoresLibros" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="RinconLetrasBDModel.Tb_Nacionalidades" Width="1.5" PointX="5.375" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

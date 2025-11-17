@@ -1,0 +1,42 @@
+﻿@model RinconLetras.Models.Autor
+
+@{
+    ViewBag.Title = "RegistrarAutor";
+    Layout = "~/Views/Shared/_LayoutInterno.cshtml";
+}
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-primary text-center">
+        @TempData["Mensaje"]
+    </div>
+}
+
+
+@using (Html.BeginForm("RegistrarAutor", "Autores", FormMethod.Post, new { @id = "FormRegistrarAutor" }))
+{
+    <div class="card shadow p-4" style="max-width: 600px; margin: 0 auto;">
+        <h4 class="mb-4 text-center">Registrar autor</h4>
+
+        <div class="mb-3">
+            <label for="Nombre_Autor" class="form-label">Nombre del autor</label>
+            @Html.TextBoxFor(m => m.Nombre_Autor, new { @class = "form-control", @placeholder = "Ej: Gabriel Garcia Marquez" })
+        </div>
+
+        <div class="mb-3">
+            <label for="Nacionalidad" class="form-label">Nacionalidad</label>
+            @Html.DropDownListFor(m => m.Nacionalidad,
+                                  ViewBag.Nacionalidades as List<SelectListItem>,
+                                  new { @class = "form-control" })
+        </div>
+
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary d-grid w-100">Proceder</button>
+        </div>
+        <a href="@Url.Action("Principal", "Home")" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Regresar
+        </a>
+    </div>
+}
+
