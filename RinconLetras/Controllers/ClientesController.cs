@@ -65,6 +65,38 @@ namespace RinconLetras.Controllers
             }
         }
 
+        
+        [HttpGet]
+        public ActionResult RegistrarseCliente()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RegistrarseCliente(Cliente cliente)
+        {
+            using (var context = new RinconLetrasBDEntities1())
+            {
+                var resultado = context.RegistrarCliente(cliente.NombreCliente, cliente.FechaNacimiento, cliente.Identificacion, cliente.CorreoElectronico, cliente.Contrasenna);
+
+                /* alex
+                Sí se están guardando los clientes en la base de datos pero no aparece el mensaje "información registrada"
+                en cambio, pasa directamente al Else y se muestra que hubo un error. REVISAR
+                */
+
+                if (resultado > 0)
+                {
+                    ViewBag.Mensaje = "Información registrada";
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewBag.Mensaje = "Hubo un error al guardar";
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+        }
+        
 
     }
 }

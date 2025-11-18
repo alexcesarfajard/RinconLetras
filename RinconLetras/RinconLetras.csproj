@@ -276,7 +276,6 @@
     <Content Include="Views\Home\Principal.cshtml" />
     <Content Include="Views\Catalogo\VerCatalogo.cshtml" />
     <Content Include="Views\Catalogo\RegistrarLibro.cshtml" />
-    <Content Include="Views\Clientes\RegistrarCliente.cshtml" />
     <Content Include="Views\Clientes\VerClientes.cshtml" />
     <Content Include="Views\Catalogo\EditarLibro.cshtml" />
     <Content Include="Views\Empleados\VerEmpleados.cshtml" />
@@ -289,6 +288,7 @@
     <Content Include="Views\Generos\RegistrarGenero.cshtml" />
     <Content Include="Views\Autores\VerAutores.cshtml" />
     <Content Include="Views\Autores\RegistrarAutor.cshtml" />
+    <Content Include="Views\Clientes\RegistrarseCliente.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

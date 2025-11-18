@@ -43,8 +43,19 @@
                                     </div>
 
                                     <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                        <a class="small" href="@Url.Action("RecuperarAcceso","Home")">Recuperar acceso</a>
-                                        <button type="submit" class="btn btn-primary">Proceder</button>
+
+                                        <div class="d-flex flex-column">
+                                            <a class="small mb-1" href="@Url.Action("RecuperarAcceso","Home")">
+                                                ¿Olvidaste tu contraseña?
+                                            </a>
+                                            <a class="small" href="@Url.Action("RegistrarseCliente","Clientes")">
+                                                Crear una cuenta nueva
+                                            </a>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary px-4">
+                                            Proceder
+                                        </button>
                                     </div>
                                 }
 
