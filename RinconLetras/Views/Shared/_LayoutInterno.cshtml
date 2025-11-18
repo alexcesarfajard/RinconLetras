@@ -2,6 +2,7 @@
     var nombre = (Session["Nombre"] == null ? "Invitado" : Session["Nombre"].ToString());
     var IdRol = (Session["IdRol"] == null ? "Pendiente" : Session["IdRol"].ToString());
     var NombreRol = (Session["NombreRol"] == null ? "Pendiente" : Session["NombreRol"].ToString());
+    var rol = Session["IdRol"] != null ? Convert.ToInt32(Session["IdRol"]) : 0;
 }
 
 <!DOCTYPE html>
@@ -85,6 +86,8 @@
                             </nav>
                         </div>
 
+
+
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseClientes">
                             <div class="sb-nav-link-icon"><i class="fas fa-user-friends"></i></div>
                             Clientes
@@ -96,6 +99,7 @@
                                 <a class="nav-link" href="@Url.Action("VerClientes", "Clientes")">Ver clientes</a>
                             </nav>
                         </div>
+
 
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCatalogo">
                             <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
@@ -154,7 +158,9 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
+
                     @RenderBody()
+
                 </div>
             </main>
 

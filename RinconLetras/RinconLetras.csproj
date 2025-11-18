@@ -280,7 +280,6 @@
     <Content Include="Views\Catalogo\EditarLibro.cshtml" />
     <Content Include="Views\Empleados\VerEmpleados.cshtml" />
     <Content Include="Views\Home\Usuario.cshtml" />
-    <Content Include="Views\Shared\_LayoutUsuario.cshtml" />
     <Content Include="Views\Empleados\RegistrarEmpleado.cshtml" />
     <Content Include="Views\Editoriales\VerEditoriales.cshtml" />
     <Content Include="Views\Editoriales\RegistrarEditorial.cshtml" />

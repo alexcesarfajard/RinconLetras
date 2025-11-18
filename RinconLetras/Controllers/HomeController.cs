@@ -61,6 +61,7 @@ namespace RinconLetras.Controllers
         [HttpGet]
         public ActionResult Principal()
         {
+            //para obtener los libros para mostrarlos en cards en el principal de usuario cliente
             using (var context = new RinconLetrasBDEntities1())
             {
                 try
@@ -136,10 +137,7 @@ namespace RinconLetras.Controllers
                     ViewBag.Mensaje = "Error al cargar el catálogo: " + ex.Message;
                     return View(new List<Libro>());
                 }
-            }
-       
-        
-        
+            }        
         }
         */
 

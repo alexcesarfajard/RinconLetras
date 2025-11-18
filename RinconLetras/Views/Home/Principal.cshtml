@@ -1,7 +1,7 @@
 ﻿@model List<RinconLetras.Models.Libro>
 
 @{
-    ViewBag.Title = "Panel Administrativo";
+    ViewBag.Title = "Panel principal";
     Layout = "~/Views/Shared/_LayoutInterno.cshtml";
     var rol = Session["IdRol"] != null ? Convert.ToInt32(Session["IdRol"]) : 0;
 }
@@ -9,186 +9,188 @@
 <!-- Esta parte es el panel de administracion y solamente puede verlo un usuario que tenga rol de administrador -->
 @if (rol == 3)
 {
-<div class="container mt-5">
 
-    <h2 class="text-center mb-4" style="color:#004A99;">
-        <i class="fas fa-user-shield me-2"></i> Panel de Administración
-    </h2>
+    <div class="container mt-5">
 
-    <p class="text-center fs-5 mb-5">
-        Bienvenido al sistema de gestión de la librería <strong>Rincón de Letras</strong>.
-        Aquí podrás administrar el catálogo, controlar inventario y gestionar datos.
-    </p>
+        <h2 class="text-center mb-4" style="color:#004A99;">
+            <i class="fas fa-user-shield me-2"></i> Panel de Administración
+        </h2>
 
-    <div class="row justify-content-center">
+        <p class="text-center fs-5 mb-5">
+            Bienvenido al sistema de gestión de la librería <strong>Rincón de Letras</strong>.
+            Aquí podrás administrar el catálogo, controlar inventario y gestionar datos.
+        </p>
 
-        <!-- Card Ver Catálogo -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow border-0 h-100 text-center">
-                <div class="card-body">
-                    <i class="fas fa-book fa-3x mb-3" style="color:#004A99;"></i>
-                    <h5 class="card-title fw-bold">Catálogo de Libros</h5>
-                    <p class="card-text">Consulta todos los libros registrados en el sistema.</p>
-                    <a href="@Url.Action("VerCatalogo", "Catalogo")" class="btn btn-primary">Ver Catálogo</a>
-                </div>
-            </div>
-        </div>
+        <div class="row justify-content-center">
 
-        <!-- Card Registrar Libro -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow border-0 h-100 text-center">
-                <div class="card-body">
-                    <i class="fas fa-plus-circle fa-3x mb-3" style="color:#28a745;"></i>
-                    <h5 class="card-title fw-bold">Registrar Nuevo Libro</h5>
-                    <p class="card-text">Añade libros al inventario y completa sus detalles.</p>
-                    <a href="@Url.Action("RegistrarLibro", "Catalogo")" class="btn btn-success">Registrar Libro</a>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- Ver empleados -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow border-0 h-100 text-center">
-                <div class="card-body">
-                    <i class="fas fa-user-tie fa-3x mb-3" style="color:#007bff;"></i>
-                    <h5 class="card-title fw-bold">Ver Empleados</h5>
-                    <p class="card-text">Consulta la lista de empleados registrados en el sistema.</p>
-                    <a href="@Url.Action("VerEmpleados", "Empleados")" class="btn btn-outline-primary">Ver Empleados</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Ver clientes -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow border-0 h-100 text-center">
-                <div class="card-body">
-                    <i class="fas fa-users fa-3x mb-3" style="color:#007bff;"></i>
-                    <h5 class="card-title fw-bold">Ver Clientes</h5>
-                    <p class="card-text">Consulta la lista de clientes registrados en el sistema.</p>
-                    <a href="@Url.Action("VerClientes", "Clientes")" class="btn btn-outline-primary">Ver Clientes</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Ver editoriales -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow border-0 h-100 text-center">
-                <div class="card-body">
-                    <i class="fas fa-compass fa-3x mb-3" style="color:#007bff;"></i>
-                    <h5 class="card-title fw-bold">Ver editoriales</h5>
-                    <p class="card-text">Consulta la lista de editoriales registradas en el sistema.</p>
-                    <a href="@Url.Action("VerEditoriales", "Editoriales")" class="btn btn-outline-primary">Ver editoriales</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Ver generos de libros -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow border-0 h-100 text-center">
-                <div class="card-body">
-                    <i class="fas fa-book-open fa-3x mb-3" style="color:#007bff;"></i>
-                    <h5 class="card-title fw-bold">Ver generos de libros</h5>
-                    <p class="card-text">Consulta la lista de generos para los libros registradas en el sistema.</p>
-                    <a href="@Url.Action("VerGeneros", "Generos")" class="btn btn-outline-primary">Ver generos</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Ver autores de libros -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow border-0 h-100 text-center">
-                <div class="card-body">
-                    <i class="fas fa-pen-nib fa-3x mb-3" style="color:#007bff;"></i>
-                    <h5 class="card-title fw-bold">Ver autores</h5>
-                    <p class="card-text">Consulta la lista de autores de libros registrados en el sistema.</p>
-                    <a href="@Url.Action("VerAutores", "Autores")" class="btn btn-outline-primary">Ver autores</a>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-}
-
-<!-- Esta parte es para usuario cliente -->
-
-<div class="container mt-5">
-    <h2 class="titulo-catalogo mb-4 text-center">
-        <i class="fas fa-book me-2"></i> Catálogo de Libros
-    </h2>
-
-    @if (ViewBag.Mensaje != null)
-    {
-        <div class="alert alert-danger text-center shadow-sm">@ViewBag.Mensaje</div>
-    }
-
-    @if (Model != null && Model.Count > 0)
-    {
-        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
-            @foreach (var item in Model)
-            {
-                <div class="col">
-                    <div class="card h-100 shadow-sm border-0 card-libro">
-                        <!-- Imagen -->
-                        @if (!string.IsNullOrEmpty(item.Imagen))
-                        {
-                            <img src="@Url.Content(item.Imagen)"
-                                 alt="Imagen de @item.Nombre"
-                                 class="card-img-top"
-                                 style="height: 250px; object-fit: cover;">
-                        }
-                        else
-                        {
-                            <div class="d-flex align-items-center justify-content-center bg-light" style="height: 250px;">
-                                <span class="text-muted">Sin imagen</span>
-                            </div>
-                        }
-
-                        <div class="card-body text-center">
-                            <h5 class="card-title fw-bold">@item.Nombre</h5>
-                            <p class="mb-2">
-                                <i class="fas fa-tags"></i> @item.Genero
-                            </p>
-                            <p class="mb-1">
-                                <i class="fas fa-building"></i> @item.Editorial
-                            </p>
-
-                            <p class="text-muted mb-1">
-                                <i class="fas fa-layer-group"></i> Cantidad: @item.CantidadInventario
-                            </p>
-                            <p class="card-text mb-1">
-                                <span class="fw-semibold" style="color: #28a745;">₡@String.Format("{0:N2}", item.Precio)</span>
-                            </p>
-                            <form asp-action="AgregarAlCarrito" asp-controller="Carrito" method="post" class="d-flex justify-content-center align-items-center flex-column">
-                                <input type="hidden" name="IdLibro" value="@item.IdLibro" />
-
-                                <div class="d-flex justify-content-center align-items-center mb-2" style="gap: 10px;">
-                                    <input type="number" name="Cantidad"
-                                           class="form-control text-center"
-                                           min="1" max="@item.CantidadInventario"
-                                           value="1" required
-                                           style="width: 90px; height: 35px;" />
-
-                                    <button type="submit" class="btn btn-sm"
-                                            style="background-color: #1E3A8A; color: white; width: 90px; height: 35px;">
-                                        <i class="fas fa-shopping-cart"></i> Agregar
-                                    </button>
-                                </div>
-                            </form>
-
-                        </div>
-
+            <!-- Card Ver Catálogo -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow border-0 h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-book fa-3x mb-3" style="color:#004A99;"></i>
+                        <h5 class="card-title fw-bold">Catálogo de Libros</h5>
+                        <p class="card-text">Consulta todos los libros registrados en el sistema.</p>
+                        <a href="@Url.Action("VerCatalogo", "Catalogo")" class="btn btn-primary">Ver Catálogo</a>
                     </div>
                 </div>
-            }
+            </div>
+
+            <!-- Card Registrar Libro -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow border-0 h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-plus-circle fa-3x mb-3" style="color:#28a745;"></i>
+                        <h5 class="card-title fw-bold">Registrar Nuevo Libro</h5>
+                        <p class="card-text">Añade libros al inventario y completa sus detalles.</p>
+                        <a href="@Url.Action("RegistrarLibro", "Catalogo")" class="btn btn-success">Registrar Libro</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Ver empleados -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow border-0 h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-user-tie fa-3x mb-3" style="color:#007bff;"></i>
+                        <h5 class="card-title fw-bold">Ver Empleados</h5>
+                        <p class="card-text">Consulta la lista de empleados registrados en el sistema.</p>
+                        <a href="@Url.Action("VerEmpleados", "Empleados")" class="btn btn-outline-primary">Ver Empleados</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ver clientes -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow border-0 h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-users fa-3x mb-3" style="color:#007bff;"></i>
+                        <h5 class="card-title fw-bold">Ver Clientes</h5>
+                        <p class="card-text">Consulta la lista de clientes registrados en el sistema.</p>
+                        <a href="@Url.Action("VerClientes", "Clientes")" class="btn btn-outline-primary">Ver Clientes</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ver editoriales -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow border-0 h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-compass fa-3x mb-3" style="color:#007bff;"></i>
+                        <h5 class="card-title fw-bold">Ver editoriales</h5>
+                        <p class="card-text">Consulta la lista de editoriales registradas en el sistema.</p>
+                        <a href="@Url.Action("VerEditoriales", "Editoriales")" class="btn btn-outline-primary">Ver editoriales</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ver generos de libros -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow border-0 h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-book-open fa-3x mb-3" style="color:#007bff;"></i>
+                        <h5 class="card-title fw-bold">Ver generos de libros</h5>
+                        <p class="card-text">Consulta la lista de generos para los libros registradas en el sistema.</p>
+                        <a href="@Url.Action("VerGeneros", "Generos")" class="btn btn-outline-primary">Ver generos</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ver autores de libros -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow border-0 h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-pen-nib fa-3x mb-3" style="color:#007bff;"></i>
+                        <h5 class="card-title fw-bold">Ver autores</h5>
+                        <p class="card-text">Consulta la lista de autores de libros registrados en el sistema.</p>
+                        <a href="@Url.Action("VerAutores", "Autores")" class="btn btn-outline-primary">Ver autores</a>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    }
-    else
-    {
-        <div class="text-center mt-5 text-muted">
-            <i class="fas fa-info-circle fs-3"></i>
-            <p>No hay libros disponibles en este momento.</p>
-        </div>
-    }
-</div>
+    </div>
+
+}
+
+<!-- Esta parte es para usuario cliente mostrar cards de libros-->
+
+    <div class="container mt-5">
+        <h2 class="titulo-catalogo mb-4 text-center">
+            <i class="fas fa-book me-2"></i> Catálogo de Libros
+        </h2>
+
+        @if (ViewBag.Mensaje != null)
+        {
+            <div class="alert alert-danger text-center shadow-sm">@ViewBag.Mensaje</div>
+        }
+
+        @if (Model != null && Model.Count > 0)
+        {
+            <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+                @foreach (var item in Model)
+                {
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0 card-libro">
+                            <!-- Imagen -->
+                            @if (!string.IsNullOrEmpty(item.Imagen))
+                            {
+                                <img src="@Url.Content(item.Imagen)"
+                                     alt="Imagen de @item.Nombre"
+                                     class="card-img-top"
+                                     style="height: 250px; object-fit: cover;">
+                            }
+                            else
+                            {
+                                <div class="d-flex align-items-center justify-content-center bg-light" style="height: 250px;">
+                                    <span class="text-muted">Sin imagen</span>
+                                </div>
+                            }
+
+                            <div class="card-body text-center">
+                                <h5 class="card-title fw-bold">@item.Nombre</h5>
+                                <p class="mb-2">
+                                    <i class="fas fa-tags"></i> @item.Genero
+                                </p>
+                                <p class="mb-1">
+                                    <i class="fas fa-building"></i> @item.Editorial
+                                </p>
+
+                                <p class="text-muted mb-1">
+                                    <i class="fas fa-layer-group"></i> Cantidad: @item.CantidadInventario
+                                </p>
+                                <p class="card-text mb-1">
+                                    <span class="fw-semibold" style="color: #28a745;">₡@String.Format("{0:N2}", item.Precio)</span>
+                                </p>
+                                <form asp-action="AgregarAlCarrito" asp-controller="Carrito" method="post" class="d-flex justify-content-center align-items-center flex-column">
+                                    <input type="hidden" name="IdLibro" value="@item.IdLibro" />
+
+                                    <div class="d-flex justify-content-center align-items-center mb-2" style="gap: 10px;">
+                                        <input type="number" name="Cantidad"
+                                               class="form-control text-center"
+                                               min="1" max="@item.CantidadInventario"
+                                               value="1" required
+                                               style="width: 90px; height: 35px;" />
+
+                                        <button type="submit" class="btn btn-sm"
+                                                style="background-color: #1E3A8A; color: white; width: 90px; height: 35px;">
+                                            <i class="fas fa-shopping-cart"></i> Agregar
+                                        </button>
+                                    </div>
+                                </form>
+
+                            </div>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="text-center mt-5 text-muted">
+                <i class="fas fa-info-circle fs-3"></i>
+                <p>No hay libros disponibles en este momento.</p>
+            </div>
+        }
+    </div>
